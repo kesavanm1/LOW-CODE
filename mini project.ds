@@ -1,0 +1,5438 @@
+/*
+ * Author       : kesavan.m.2024.aiml_rajal504
+ * Generated on : 21-Oct-2026 11:02:21
+ * Version      : 1.0
+ */
+ application "Hotel Room Booking System"
+ {
+ 	date format = "dd-MMM-yyyy"
+ 	time zone = "America/Los_Angeles"
+ 	time format = "24-hr"
+
+ 	forms
+	{
+		form booking_record
+		{
+			displayname = "Booking Record"
+			success message = "Record Added Successfully"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			booking_id
+			(
+    			type = autonumber
+				displayname = "Booking Id"
+				start index = 1
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			booking_date
+			(
+    			type = date
+				displayname = "Booking Date"
+				alloweddays = 0,1,2,3,4,5,6
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			guest
+			(
+				type = picklist	
+				displayname = "Guest"
+				values  = guest_profile.ID
+    			displayformat = [guest_id]
+				allow new entries
+				[
+					displayname = "Add New"
+				]
+				sortorder = ascending
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			room
+			(
+				type = picklist	
+				displayname = "Room"
+				values  = room_master.ID
+    			displayformat = [room_id]
+				allow new entries
+				[
+					displayname = "Add New"
+				]
+				sortorder = ascending
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			check_in_date
+			(
+    			type = date
+				displayname = "Check In Date"
+				alloweddays = 0,1,2,3,4,5,6
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			check_out_date
+			(
+    			type = date
+				displayname = "Check Out Date"
+				alloweddays = 0,1,2,3,4,5,6
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			number_of_adults
+			(
+				type = number
+				displayname = "Number Of Adults"
+				maxchar = 19
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			number_of_children
+			(
+				type = number
+				displayname = "Number Of Children"
+				maxchar = 19
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			number_of_rooms
+			(
+				type = number
+				displayname = "Number Of Rooms"
+				maxchar = 19
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			meal_plan
+			(
+				type = picklist
+				displayname = "Meal Plan"
+				values = {"Breakfast Included","Half Board","Full Board","Room Only"}
+				others option = true
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			booking_source
+			(
+				type = picklist
+				displayname = "Booking Source"
+				values = {"Phone","Corporate","Travel Agent","Website","Walk In"}
+				others option = true
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			special_requests
+			(
+    			type = textarea
+				displayname = "Special Requests"
+				height = 100px
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			room_price_per_night
+			(
+				displayname = "Room Price Per Night"
+				type = USD
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			number_of_nights
+			(
+				type = number
+				displayname = "Number Of Nights"
+				maxchar = 19
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			extra_charges
+			(
+				displayname = "Extra Charges"
+				type = USD
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			discount_amount
+			(
+				displayname = "Discount Amount"
+				type = USD
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			tax_amount
+			(
+				displayname = "Tax Amount"
+				type = USD
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			final_booking_amount
+			(
+				displayname = "Final Booking Amount"
+				type = USD
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			payment_status
+			(
+				type = picklist
+				displayname = "Payment Status"
+				values = {"Failed","Paid","Pending","Partially Paid","Refunded"}
+				others option = true
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			booking_status
+			(
+				type = picklist
+				displayname = "Booking Status"
+				values = {"No Show","Checked In","Confirmed","Cancelled","Pending","Checked Out"}
+				others option = true
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			staff_member
+			(
+				type = picklist	
+				displayname = "Staff Member"
+				values  = staff_profile.ID
+    			displayformat = [staff_id]
+				allow new entries
+				[
+					displayname = "Add New"
+				]
+				sortorder = ascending
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+					reset
+					(
+   						type = reset
+   						displayname = "Reset"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		form check_in_log
+		{
+			displayname = "Check In Log"
+			success message = "Data Added Successfully!"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			booking
+			(
+				type = picklist	
+				displayname = "Booking"
+				values  = booking_record.ID
+    			displayformat = [booking_id]
+				allow new entries
+				[
+					displayname = "Add New"
+				]
+				sortorder = ascending
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			guest_name
+			(
+    			type = name
+				displayname = "Guest Name"
+     			prefix
+     			(
+	     			 type = prefix
+	     			 displayname ="Prefix"
+	     			 visibility = false
+	     			 value = {"Mr.","Mrs.","Ms."}
+     			) 
+     			first_name
+     			(
+	     			 type = first_name
+	     			 displayname ="First Name"
+     			) 
+     			last_name
+     			(
+	     			 type = last_name
+	     			 displayname ="Last Name"
+	     			 visibility = false
+     			) 
+     			suffix
+     			(
+	     			 type = suffix
+	     			 displayname ="Suffix"
+	     			 visibility = false
+     			) 
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			room_number
+			(
+    			type = text
+				displayname = "Room Number"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			actual_check_in_date
+			(
+    			type = date
+				displayname = "Actual Check In Date"
+				alloweddays = 0,1,2,3,4,5,6
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			actual_check_in_time
+			(
+    			type = time
+				displayname = "Actual Check In Time"
+				timedisplayoptions = "hh:mm:ss" 
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			number_of_guests
+			(
+				type = number
+				displayname = "Number Of Guests"
+				maxchar = 19
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			id_verification_status
+			(
+				type = picklist
+				displayname = "ID Verification Status"
+				values = {"Verified","Exempt","Not Verified"}
+				others option = true
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			key_issued
+			(
+    			type = checkbox
+				displayname = "Key Or Access Card Issued"
+				initial value = false
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			staff_member
+			(
+				type = picklist	
+				displayname = "Staff Member"
+				values  = staff_profile.ID
+    			displayformat = [staff_id]
+				allow new entries
+				[
+					displayname = "Add New"
+				]
+				sortorder = ascending
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			check_in_notes
+			(
+    			type = textarea
+				displayname = "Check In Notes"
+				height = 100px
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+					reset
+					(
+   						type = reset
+   						displayname = "Reset"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+			blueprint components
+			{
+				stages = {"Check-In Initiated","ID Verification Pending","Check-In Cancelled","ID Verified","ID Verification Failed","Key Issuance Pending","Check-In Denied","Keys Issued","Check-In Completed","Guest Stay Active","Check-Out Initiated","Check-Out Completed"}
+			}
+		}
+		form check_out_log
+		{
+			displayname = "Check Out Log"
+			success message = "Data Added Successfully!"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			booking
+			(
+				type = picklist	
+				displayname = "Booking"
+				values  = booking_record.ID
+    			displayformat = [booking_id]
+				allow new entries
+				[
+					displayname = "Add New"
+				]
+				sortorder = ascending
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			guest_name
+			(
+    			type = name
+				displayname = "Guest Name"
+     			prefix
+     			(
+	     			 type = prefix
+	     			 displayname ="Prefix"
+	     			 visibility = false
+	     			 value = {"Mr.","Mrs.","Ms."}
+     			) 
+     			first_name
+     			(
+	     			 type = first_name
+	     			 displayname ="First Name"
+     			) 
+     			last_name
+     			(
+	     			 type = last_name
+	     			 displayname ="Last Name"
+	     			 visibility = false
+     			) 
+     			suffix
+     			(
+	     			 type = suffix
+	     			 displayname ="Suffix"
+	     			 visibility = false
+     			) 
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			room_number
+			(
+    			type = text
+				displayname = "Room Number"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			scheduled_check_out_date
+			(
+    			type = date
+				displayname = "Scheduled Check Out Date"
+				alloweddays = 0,1,2,3,4,5,6
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			actual_check_out_date
+			(
+    			type = date
+				displayname = "Actual Check Out Date"
+				alloweddays = 0,1,2,3,4,5,6
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			actual_check_out_time
+			(
+    			type = time
+				displayname = "Actual Check Out Time"
+				timedisplayoptions = "hh:mm:ss" 
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			additional_charges
+			(
+				displayname = "Additional Charges"
+				type = USD
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			outstanding_balance
+			(
+				displayname = "Outstanding Balance"
+				type = USD
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			final_bill_amount
+			(
+				displayname = "Final Bill Amount"
+				type = USD
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			payment_settlement_status
+			(
+				type = picklist
+				displayname = "Payment Settlement Status"
+				values = {"Partial","Outstanding","Settled","Refunded"}
+				others option = true
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			room_condition
+			(
+				type = picklist
+				displayname = "Room Condition"
+				values = {"Major Damage","Good","Needs Cleaning","Minor Damage"}
+				others option = true
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			guest_feedback_request
+			(
+    			type = checkbox
+				displayname = "Guest Feedback Request"
+				initial value = false
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			staff_member
+			(
+				type = picklist	
+				displayname = "Staff Member"
+				values  = staff_profile.ID
+    			displayformat = [staff_id]
+				allow new entries
+				[
+					displayname = "Add New"
+				]
+				sortorder = ascending
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			check_out_notes
+			(
+    			type = textarea
+				displayname = "Check Out Notes"
+				height = 100px
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+					reset
+					(
+   						type = reset
+   						displayname = "Reset"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+			blueprint components
+			{
+				stages = {"Check Out Initiated","Billing Calculation","Check Out Cancelled","Room Inspection","Billing Dispute","Billing Finalization","Damage Assessment","Payment Processing","Check Out Completed","Payment Failed","Check Out Closed"}
+			}
+		}
+		form guest_feedback
+		{
+			displayname = "Guest Feedback"
+			success message = "Guest Feedback Added Successfully"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			guest
+			(
+				type = picklist	
+				displayname = "Guest"
+				values  = guest_profile.ID
+    			displayformat = [guest_id]
+				allow new entries
+				[
+					displayname = "Add New"
+				]
+				sortorder = ascending
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			booking
+			(
+				type = picklist	
+				displayname = "Booking"
+				values  = booking_record.ID
+    			displayformat = [booking_id]
+				allow new entries
+				[
+					displayname = "Add New"
+				]
+				sortorder = ascending
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			room_number
+			(
+    			type = text
+				displayname = "Room Number"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			overall_rating
+			(
+				type = number
+				displayname = "Overall Rating"
+				maxchar = 19
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			cleanliness_rating
+			(
+				type = number
+				displayname = "Cleanliness Rating"
+				maxchar = 19
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			staff_service_rating
+			(
+				type = number
+				displayname = "Staff Service Rating"
+				maxchar = 19
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			comfort_rating
+			(
+				type = number
+				displayname = "Comfort Rating"
+				maxchar = 19
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			feedback_comments
+			(
+    			type = textarea
+				displayname = "Feedback Comments"
+				height = 100px
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			submission_date
+			(
+    			type = date
+				displayname = "Submission Date"
+				alloweddays = 0,1,2,3,4,5,6
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			follow_up_status
+			(
+				type = picklist
+				displayname = "Follow Up Status"
+				values = {"Closed","In Progress","Resolved","Pending"}
+				others option = true
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+					reset
+					(
+   						type = reset
+   						displayname = "Reset"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		form guest_profile
+		{
+			displayname = "Guest Profile"
+			success message = "Guest Profile Added Successfully"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			guest_id
+			(
+    			type = autonumber
+				displayname = "Guest Id"
+				start index = 1
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			full_name
+			(
+    			type = name
+				displayname = "Full Name"
+     			prefix
+     			(
+	     			 type = prefix
+	     			 displayname ="Prefix"
+	     			 visibility = false
+	     			 value = {"Mr.","Mrs.","Ms."}
+     			) 
+     			first_name
+     			(
+	     			 type = first_name
+	     			 displayname ="First Name"
+     			) 
+     			last_name
+     			(
+	     			 type = last_name
+	     			 displayname ="Last Name"
+	     			 visibility = false
+     			) 
+     			suffix
+     			(
+	     			 type = suffix
+	     			 displayname ="Suffix"
+	     			 visibility = false
+     			) 
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			email
+			(
+    			type = email
+				displayname = "Email Address"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			mobile_number
+			(
+    			type = phonenumber
+				displayname = "Mobile Number"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			alternate_mobile
+			(
+    			type = phonenumber
+				displayname = "Alternate Mobile"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			date_of_birth
+			(
+    			type = date
+				displayname = "Date Of Birth"
+				alloweddays = 0,1,2,3,4,5,6
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			gender
+			(
+				type = picklist
+				displayname = "Gender"
+				values = {"Male","Female","Other","Prefer Not To Say"}
+				others option = true
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			address
+			(
+    			type = address
+				displayname = "Address"
+     			capture_coordinates = true
+     			adjust_using_map = false
+     			address_line_1
+     			(
+	     			  type = address_line_1
+	     			  displayname = "Address Line 1"
+     			) 
+     			address_line_2
+     			(
+	     			  type = address_line_2
+	     			  displayname = "Address Line 2"
+	     			 visibility = false
+     			) 
+     			district_city
+     			(
+	     			  type = district_city
+	     			  displayname = "City / District"
+	     			 visibility = false
+     			) 
+     			state_province
+     			(
+	     			  type = state_province
+	     			  displayname = "State / Province"
+	     			 visibility = false
+     			) 
+     			postal_Code
+     			(
+	     			  type = postal_Code
+	     			  displayname = "Postal Code"
+	     			 visibility = false
+     			) 
+     			country
+     			(
+	     			  type = country
+	     			  displayname = "Country"
+	     			 visibility = false
+     			) 
+     			latitude
+     			(
+	     			  type = latitude
+	     			  displayname = "Latitude"
+	     			 visibility = false
+     			) 
+     			longitude
+     			(
+	     			  type = longitude
+	     			  displayname = "Longitude"
+	     			 visibility = false
+     			) 
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			postal_code1
+			(
+    			type = text
+				displayname = "Postal Code"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			id_proof_type
+			(
+				type = picklist
+				displayname = "ID Proof Type"
+				values = {"Passport","Aadhar","Driving License","Voter ID"}
+				others option = true
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			id_proof_number
+			(
+    			type = text
+				displayname = "ID Proof Number"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			guest_category
+			(
+				type = picklist
+				displayname = "Guest Category"
+				values = {"Regular","Corporate","Family","VIP","Business"}
+				others option = true
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			is_vip
+			(
+    			type = checkbox
+				displayname = "Is VIP Guest"
+				initial value = false
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			special_requirements
+			(
+    			type = textarea
+				displayname = "Special Requirements"
+				height = 100px
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			guest_notes
+			(
+    			type = textarea
+				displayname = "Guest Notes"
+				height = 100px
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+					reset
+					(
+   						type = reset
+   						displayname = "Reset"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		form housekeeping_task
+		{
+			displayname = "Housekeeping Task"
+			success message = "Housekeeping Task Added Successfully"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			room
+			(
+				type = picklist	
+				displayname = "Room"
+				values  = room_master.ID
+    			displayformat = [room_id]
+				allow new entries
+				[
+					displayname = "Add New"
+				]
+				sortorder = ascending
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			task_type
+			(
+				type = picklist
+				displayname = "Task Type"
+				values = {"Room Inspection","Maintenance Request","Checkout Cleaning","Linen Replacement","Regular Cleaning","Deep Cleaning"}
+				others option = true
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			assigned_staff
+			(
+				type = picklist	
+				displayname = "Assigned Staff"
+				values  = staff_profile.ID
+    			displayformat = [staff_id]
+				allow new entries
+				[
+					displayname = "Add New"
+				]
+				sortorder = ascending
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			task_date
+			(
+    			type = date
+				displayname = "Task Date"
+				alloweddays = 0,1,2,3,4,5,6
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			start_time
+			(
+    			type = time
+				displayname = "Start Time"
+				timedisplayoptions = "hh:mm:ss" 
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			completion_time
+			(
+    			type = time
+				displayname = "Completion Time"
+				timedisplayoptions = "hh:mm:ss" 
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			cleaning_status
+			(
+				type = picklist
+				displayname = "Cleaning Status"
+				values = {"Assigned","Completed","In Progress","Inspected","Pending"}
+				others option = true
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			inspection_status
+			(
+				type = picklist
+				displayname = "Inspection Status"
+				values = {"Passed","Failed","Pending"}
+				others option = true
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			maintenance_notes
+			(
+    			type = textarea
+				displayname = "Maintenance Notes"
+				height = 100px
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+					reset
+					(
+   						type = reset
+   						displayname = "Reset"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		form offer_discount
+		{
+			displayname = "Offer Discount"
+			success message = "Discount Offered Successfully"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			offer_name
+			(
+    			type = text
+				displayname = "Offer Name"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			offer_code
+			(
+    			type = text
+				displayname = "Offer Code"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			description
+			(
+    			type = textarea
+				displayname = "Description"
+				height = 100px
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			discount_type
+			(
+				type = radiobuttons
+				displayname = "Discount Type"
+				values = {"Percentage","Fixed Amount"}
+				others option = true
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			discount_value
+			(
+				type = decimal
+				displayname = "Discount Value"
+				maxchar = 16
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			valid_from
+			(
+    			type = date
+				displayname = "Valid From"
+				alloweddays = 0,1,2,3,4,5,6
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			valid_until
+			(
+    			type = date
+				displayname = "Valid Until"
+				alloweddays = 0,1,2,3,4,5,6
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			applicable_room_types
+			(
+				type = list	
+				displayname = "Applicable Room Types"
+				values = {"Executive Suite","Executive","Honeymoon Suite","Presidential Suite","Family","Standard","Premium","Junior Suite","Deluxe"}
+				height = 13px
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			minimum_stay
+			(
+				type = number
+				displayname = "Minimum Stay"
+				maxchar = 19
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			maximum_discount
+			(
+				displayname = "Maximum Discount"
+				type = USD
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			active_status
+			(
+    			type = checkbox
+				displayname = "Active Status"
+				initial value = false
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+					reset
+					(
+   						type = reset
+   						displayname = "Reset"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		form payment_transaction
+		{
+			displayname = "Payment Transaction"
+			success message = "Payment Transaction Added Successfully"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			booking
+			(
+				type = picklist	
+				displayname = "Booking"
+				values  = booking_record.ID
+    			displayformat = [booking_id]
+				allow new entries
+				[
+					displayname = "Add New"
+				]
+				sortorder = ascending
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			guest_name
+			(
+    			type = name
+				displayname = "Guest Name"
+     			prefix
+     			(
+	     			 type = prefix
+	     			 displayname ="Prefix"
+	     			 visibility = false
+	     			 value = {"Mr.","Mrs.","Ms."}
+     			) 
+     			first_name
+     			(
+	     			 type = first_name
+	     			 displayname ="First Name"
+     			) 
+     			last_name
+     			(
+	     			 type = last_name
+	     			 displayname ="Last Name"
+	     			 visibility = false
+     			) 
+     			suffix
+     			(
+	     			 type = suffix
+	     			 displayname ="Suffix"
+	     			 visibility = false
+     			) 
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			booking_amount
+			(
+				displayname = "Booking Amount"
+				type = USD
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			previous_payments
+			(
+				displayname = "Previous Payments"
+				type = USD
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			current_payment_amount
+			(
+				displayname = "Current Payment Amount"
+				type = USD
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			payment_date
+			(
+    			type = date
+				displayname = "Payment Date"
+				alloweddays = 0,1,2,3,4,5,6
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			payment_method
+			(
+				type = picklist
+				displayname = "Payment Method"
+				values = {"Credit Card","Bank Transfer","Cash","Debit Card","UPI"}
+				others option = true
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			transaction_reference
+			(
+    			type = text
+				displayname = "Transaction Reference"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			payment_status
+			(
+				type = picklist
+				displayname = "Payment Status"
+				values = {"Partially Refunded","Failed","Paid","Pending","Partially Paid","Refunded"}
+				others option = true
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			refund_amount
+			(
+				displayname = "Refund Amount"
+				type = USD
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			payment_notes
+			(
+    			type = textarea
+				displayname = "Payment Notes"
+				height = 100px
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+					reset
+					(
+   						type = reset
+   						displayname = "Reset"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		form room_master
+		{
+			displayname = "Room Master"
+			success message = "Room Master Added Successfully"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			room_id
+			(
+    			type = autonumber
+				displayname = "Room Id"
+				start index = 1
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			room_number
+			(
+    			type = text
+				displayname = "Room Number"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			room_name
+			(
+    			type = text
+				displayname = "Room Name"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			floor_number
+			(
+				type = number
+				displayname = "Floor Number"
+				maxchar = 19
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			building_wing
+			(
+    			type = text
+				displayname = "Building Or Wing"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			room_type
+			(
+				type = picklist
+				displayname = "Room Type"
+				values = {"Executive Suite","Executive","Honeymoon Suite","Presidential Suite","Family","Standard","Premium","Junior Suite","Deluxe"}
+				others option = true
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			bed_type
+			(
+				type = picklist
+				displayname = "Bed Type"
+				values = {"Double Bed","Queen Bed","Single Bed","Twin Beds","King Bed"}
+				others option = true
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			max_adult_capacity
+			(
+				type = number
+				displayname = "Max Adult Capacity"
+				maxchar = 19
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			max_child_capacity
+			(
+				type = number
+				displayname = "Max Child Capacity"
+				maxchar = 19
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			price_per_night
+			(
+				displayname = "Price Per Night"
+				type = USD
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			extra_guest_charge
+			(
+				displayname = "Extra Guest Charge"
+				type = USD
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			amenities
+			(
+    			type = textarea
+				displayname = "Amenities"
+				height = 100px
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			room_description
+			(
+    			type = textarea
+				displayname = "Room Description"
+				height = 100px
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			availability_status
+			(
+				type = picklist
+				displayname = "Availability Status"
+				values = {"Occupied","Out Of Service","Available","Cleaning Required","Under Maintenance","Reserved"}
+				others option = true
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			housekeeping_status
+			(
+				type = picklist
+				displayname = "Housekeeping Status"
+				values = {"In Progress","Clean","Dirty","Inspected"}
+				others option = true
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			maintenance_notes
+			(
+    			type = textarea
+				displayname = "Maintenance Notes"
+				height = 100px
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+					reset
+					(
+   						type = reset
+   						displayname = "Reset"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		form staff_profile
+		{
+			displayname = "Staff Profile"
+			success message = "Staff Profile Added Successfully"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			staff_id
+			(
+    			type = autonumber
+				displayname = "Staff Id"
+				start index = 1
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			staff_name
+			(
+    			type = name
+				displayname = "Staff Name"
+     			prefix
+     			(
+	     			 type = prefix
+	     			 displayname ="Prefix"
+	     			 visibility = false
+	     			 value = {"Mr.","Mrs.","Ms."}
+     			) 
+     			first_name
+     			(
+	     			 type = first_name
+	     			 displayname ="First Name"
+     			) 
+     			last_name
+     			(
+	     			 type = last_name
+	     			 displayname ="Last Name"
+	     			 visibility = false
+     			) 
+     			suffix
+     			(
+	     			 type = suffix
+	     			 displayname ="Suffix"
+	     			 visibility = false
+     			) 
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			email
+			(
+    			type = email
+				displayname = "Email"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			mobile_number
+			(
+    			type = phonenumber
+				displayname = "Mobile Number"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			department
+			(
+				type = picklist
+				displayname = "Department"
+				values = {"Housekeeping","Reception","Management","Maintenance","Accounts"}
+				others option = true
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			job_role
+			(
+    			type = text
+				displayname = "Job Role"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			joining_date
+			(
+    			type = date
+				displayname = "Joining Date"
+				alloweddays = 0,1,2,3,4,5,6
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			employment_status
+			(
+				type = picklist
+				displayname = "Employment Status"
+				values = {"Active","Resigned","Probation","On Leave"}
+				others option = true
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+					reset
+					(
+   						type = reset
+   						displayname = "Reset"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+	}
+	reports
+	{
+		list booking_record_Report
+		{
+			displayName = "All Records"
+			show all rows from booking_record    
+			(
+				booking_id as "Booking Id"
+				booking_date as "Booking Date"
+				guest as "Guest"
+				room as "Room"
+				check_in_date as "Check In Date"
+				check_out_date as "Check Out Date"
+				number_of_adults as "Number Of Adults"
+				number_of_children as "Number Of Children"
+				number_of_rooms as "Number Of Rooms"
+				meal_plan as "Meal Plan"
+				booking_source as "Booking Source"
+				special_requests as "Special Requests"
+				room_price_per_night as "Room Price Per Night"
+				(
+					display = total,average,min,max	
+				)
+				number_of_nights as "Number Of Nights"
+				extra_charges as "Extra Charges"
+				(
+					display = total,average,min,max	
+				)
+				discount_amount as "Discount Amount"
+				(
+					display = total,average,min,max	
+				)
+				tax_amount as "Tax Amount"
+				(
+					display = total,average,min,max	
+				)
+				final_booking_amount as "Final Booking Amount"
+				(
+					display = total,average,min,max	
+				)
+				payment_status as "Payment Status"
+				booking_status as "Booking Status"
+				staff_member as "Staff Member"
+			)
+			conditional formatting
+			(
+				"New Formatting1"
+				{
+				condition = (booking_source == "Corporate")
+				fields = [booking_source]
+				format = "color:#ffffff;background-color:#765f89;"
+				}
+				"New Formatting2"
+				{
+				condition = (booking_source == "Phone")
+				fields = [booking_source]
+				format = "color:#000000;background-color:#1bbc9b;"
+				}
+				"New Formatting3"
+				{
+				condition = (booking_source == "Travel Agent")
+				fields = [booking_source]
+				format = "color:#ffffff;background-color:#e84c3d;"
+				}
+				"New Formatting4"
+				{
+				condition = (booking_source == "Walk In")
+				fields = [booking_source]
+				format = "color:#ffffff;background-color:#3598db;"
+				}
+			)
+		}
+		kanban booking_record_by_booking_status
+		{
+			displayName = "Booking Statuses"
+			show all rows from booking_record    
+			(
+				booking_id as "Booking Id"
+				booking_date as "Booking Date"
+				guest as "Guest"
+				room as "Room"
+				check_in_date as "Check In Date"
+				check_out_date as "Check Out Date"
+				number_of_adults as "Number Of Adults"
+				number_of_children as "Number Of Children"
+				number_of_rooms as "Number Of Rooms"
+				meal_plan as "Meal Plan"
+				booking_source as "Booking Source"
+				special_requests as "Special Requests"
+				room_price_per_night as "Room Price Per Night"
+				(
+					display = total,average,min,max	
+				)
+				number_of_nights as "Number Of Nights"
+				extra_charges as "Extra Charges"
+				(
+					display = total,average,min,max	
+				)
+				discount_amount as "Discount Amount"
+				(
+					display = total,average,min,max	
+				)
+				tax_amount as "Tax Amount"
+				(
+					display = total,average,min,max	
+				)
+				final_booking_amount as "Final Booking Amount"
+				(
+					display = total,average,min,max	
+				)
+				payment_status as "Payment Status"
+				booking_status as "Booking Status"
+				staff_member as "Staff Member"
+			)
+			options
+			(
+	 			display field = booking_status
+	 		)
+		}
+		list check_in_log_Report
+		{
+			displayName = "Check In Log Report"
+			show all rows from check_in_log    
+			(
+				booking as "Booking"
+				guest_name  as "Guest Name"
+				room_number as "Room Number"
+				actual_check_in_date as "Actual Check In Date"
+				actual_check_in_time as "Actual Check In Time"
+				number_of_guests as "Number Of Guests"
+				id_verification_status as "ID Verification Status"
+				key_issued as "Key Or Access Card Issued"
+				staff_member as "Staff Member"
+				check_in_notes as "Check In Notes"
+			)
+			conditional formatting
+			(
+				"New Formatting1"
+				{
+				condition = (id_verification_status == "Exempt")
+				fields = [id_verification_status]
+				format = "color:#ffffff;background-color:#765f89;"
+				}
+				"New Formatting2"
+				{
+				condition = (id_verification_status == "Not Verified")
+				fields = [id_verification_status]
+				format = "color:#000000;background-color:#1bbc9b;"
+				}
+				"New Formatting3"
+				{
+				condition = (id_verification_status == "Verified")
+				fields = [id_verification_status]
+				format = "color:#ffffff;background-color:#e84c3d;"
+				}
+			)
+		}
+		kanban check_in_log_by_id_verification_status
+		{
+			displayName = "Id Verification Statuses"
+			show all rows from check_in_log    
+			(
+				booking as "Booking"
+				guest_name  as "Guest Name"
+				room_number as "Room Number"
+				actual_check_in_date as "Actual Check In Date"
+				actual_check_in_time as "Actual Check In Time"
+				number_of_guests as "Number Of Guests"
+				id_verification_status as "ID Verification Status"
+				key_issued as "Key Or Access Card Issued"
+				staff_member as "Staff Member"
+				check_in_notes as "Check In Notes"
+			)
+			options
+			(
+	 			display field = id_verification_status
+	 		)
+		}
+		list housekeeping_task_Report
+		{
+			displayName = "All Housekeeping Tasks"
+			show all rows from housekeeping_task    
+			(
+				room as "Room"
+				task_type as "Task Type"
+				assigned_staff as "Assigned Staff"
+				task_date as "Task Date"
+				start_time as "Start Time"
+				completion_time as "Completion Time"
+				cleaning_status as "Cleaning Status"
+				inspection_status as "Inspection Status"
+				maintenance_notes as "Maintenance Notes"
+			)
+			conditional formatting
+			(
+				"New Formatting1"
+				{
+				condition = (cleaning_status == "Assigned")
+				fields = [cleaning_status]
+				format = "color:#ffffff;background-color:#765f89;"
+				}
+				"New Formatting2"
+				{
+				condition = (cleaning_status == "In Progress")
+				fields = [cleaning_status]
+				format = "color:#000000;background-color:#1bbc9b;"
+				}
+				"New Formatting3"
+				{
+				condition = (cleaning_status == "Pending")
+				fields = [cleaning_status]
+				format = "color:#ffffff;background-color:#e84c3d;"
+				}
+			)
+		}
+		kanban housekeeping_task_by_task_type
+		{
+			displayName = "Task Types"
+			show all rows from housekeeping_task    
+			(
+				room as "Room"
+				task_type as "Task Type"
+				assigned_staff as "Assigned Staff"
+				task_date as "Task Date"
+				start_time as "Start Time"
+				completion_time as "Completion Time"
+				cleaning_status as "Cleaning Status"
+				inspection_status as "Inspection Status"
+				maintenance_notes as "Maintenance Notes"
+			)
+			options
+			(
+	 			display field = task_type
+	 		)
+		}
+		list guest_profile_Report
+		{
+			displayName = "All Guest Profiles"
+			show all rows from guest_profile    
+			(
+				guest_id as "Guest Id"
+				full_name  as "Full Name"
+				email as "Email Address"
+				mobile_number as "Mobile Number"
+				alternate_mobile as "Alternate Mobile"
+				date_of_birth as "Date Of Birth"
+				gender as "Gender"
+				address  as "Address"
+	 			(
+	      			enable = Link_to_Map,Show_As_Text
+	 			)
+				postal_code1 as "Postal Code"
+				id_proof_type as "ID Proof Type"
+				id_proof_number as "ID Proof Number"
+				guest_category as "Guest Category"
+				is_vip as "Is VIP Guest"
+				special_requirements as "Special Requirements"
+				guest_notes as "Guest Notes"
+			)
+			conditional formatting
+			(
+				"New Formatting1"
+				{
+				condition = (guest_category == "Business")
+				fields = [guest_category]
+				format = "color:#ffffff;background-color:#765f89;"
+				}
+				"New Formatting2"
+				{
+				condition = (guest_category == "Family")
+				fields = [guest_category]
+				format = "color:#000000;background-color:#1bbc9b;"
+				}
+				"New Formatting3"
+				{
+				condition = (guest_category == "Regular")
+				fields = [guest_category]
+				format = "color:#ffffff;background-color:#e84c3d;"
+				}
+				"New Formatting4"
+				{
+				condition = (guest_category == "VIP")
+				fields = [guest_category]
+				format = "color:#ffffff;background-color:#3598db;"
+				}
+			)
+		}
+		kanban guest_profile_by_guest_category
+		{
+			displayName = "Guest Categories"
+			show all rows from guest_profile    
+			(
+				guest_id as "Guest Id"
+				full_name  as "Full Name"
+				email as "Email Address"
+				mobile_number as "Mobile Number"
+				alternate_mobile as "Alternate Mobile"
+				date_of_birth as "Date Of Birth"
+				gender as "Gender"
+				address  as "Address"
+	 			(
+	      			enable = Link_to_Map,Show_As_Text
+	 			)
+				postal_code1 as "Postal Code"
+				id_proof_type as "ID Proof Type"
+				id_proof_number as "ID Proof Number"
+				guest_category as "Guest Category"
+				is_vip as "Is VIP Guest"
+				special_requirements as "Special Requirements"
+				guest_notes as "Guest Notes"
+			)
+			options
+			(
+	 			display field = guest_category
+	 		)
+		}
+		list check_out_log_Report
+		{
+			displayName = "Check Out Log Report"
+			show all rows from check_out_log    
+			(
+				booking as "Booking"
+				guest_name  as "Guest Name"
+				room_number as "Room Number"
+				scheduled_check_out_date as "Scheduled Check Out Date"
+				actual_check_out_date as "Actual Check Out Date"
+				actual_check_out_time as "Actual Check Out Time"
+				additional_charges as "Additional Charges"
+				(
+					display = total,average,min,max	
+				)
+				outstanding_balance as "Outstanding Balance"
+				(
+					display = total,average,min,max	
+				)
+				final_bill_amount as "Final Bill Amount"
+				(
+					display = total,average,min,max	
+				)
+				payment_settlement_status as "Payment Settlement Status"
+				room_condition as "Room Condition"
+				guest_feedback_request as "Guest Feedback Request"
+				staff_member as "Staff Member"
+				check_out_notes as "Check Out Notes"
+			)
+			conditional formatting
+			(
+				"New Formatting1"
+				{
+				condition = (payment_settlement_status == "Outstanding")
+				fields = [payment_settlement_status]
+				format = "color:#ffffff;background-color:#765f89;"
+				}
+				"New Formatting2"
+				{
+				condition = (payment_settlement_status == "Refunded")
+				fields = [payment_settlement_status]
+				format = "color:#000000;background-color:#1bbc9b;"
+				}
+				"New Formatting3"
+				{
+				condition = (payment_settlement_status == "Settled")
+				fields = [payment_settlement_status]
+				format = "color:#ffffff;background-color:#e84c3d;"
+				}
+			)
+		}
+		kanban check_out_log_by_payment_settlement_status
+		{
+			displayName = "Payment Settlement Statuses"
+			show all rows from check_out_log    
+			(
+				booking as "Booking"
+				guest_name  as "Guest Name"
+				room_number as "Room Number"
+				scheduled_check_out_date as "Scheduled Check Out Date"
+				actual_check_out_date as "Actual Check Out Date"
+				actual_check_out_time as "Actual Check Out Time"
+				additional_charges as "Additional Charges"
+				(
+					display = total,average,min,max	
+				)
+				outstanding_balance as "Outstanding Balance"
+				(
+					display = total,average,min,max	
+				)
+				final_bill_amount as "Final Bill Amount"
+				(
+					display = total,average,min,max	
+				)
+				payment_settlement_status as "Payment Settlement Status"
+				room_condition as "Room Condition"
+				guest_feedback_request as "Guest Feedback Request"
+				staff_member as "Staff Member"
+				check_out_notes as "Check Out Notes"
+			)
+			options
+			(
+	 			display field = payment_settlement_status
+	 		)
+		}
+		list room_master_Report
+		{
+			displayName = "All Room Masters"
+			show all rows from room_master    
+			(
+				room_id as "Room Id"
+				room_number as "Room Number"
+				room_name as "Room Name"
+				floor_number as "Floor Number"
+				building_wing as "Building Or Wing"
+				room_type as "Room Type"
+				bed_type as "Bed Type"
+				max_adult_capacity as "Max Adult Capacity"
+				max_child_capacity as "Max Child Capacity"
+				price_per_night as "Price Per Night"
+				(
+					display = total,average,min,max	
+				)
+				extra_guest_charge as "Extra Guest Charge"
+				(
+					display = total,average,min,max	
+				)
+				amenities as "Amenities"
+				room_description as "Room Description"
+				availability_status as "Availability Status"
+				housekeeping_status as "Housekeeping Status"
+				maintenance_notes as "Maintenance Notes"
+			)
+			conditional formatting
+			(
+				"New Formatting1"
+				{
+				condition = (bed_type == "Double Bed")
+				fields = [bed_type]
+				format = "color:#ffffff;background-color:#765f89;"
+				}
+				"New Formatting2"
+				{
+				condition = (bed_type == "King Bed")
+				fields = [bed_type]
+				format = "color:#000000;background-color:#1bbc9b;"
+				}
+				"New Formatting3"
+				{
+				condition = (bed_type == "Queen Bed")
+				fields = [bed_type]
+				format = "color:#ffffff;background-color:#e84c3d;"
+				}
+				"New Formatting4"
+				{
+				condition = (bed_type == "Single Bed")
+				fields = [bed_type]
+				format = "color:#ffffff;background-color:#3598db;"
+				}
+			)
+		}
+		kanban room_master_by_room_type
+		{
+			displayName = "Room Types"
+			show all rows from room_master    
+			(
+				room_id as "Room Id"
+				room_number as "Room Number"
+				room_name as "Room Name"
+				floor_number as "Floor Number"
+				building_wing as "Building Or Wing"
+				room_type as "Room Type"
+				bed_type as "Bed Type"
+				max_adult_capacity as "Max Adult Capacity"
+				max_child_capacity as "Max Child Capacity"
+				price_per_night as "Price Per Night"
+				(
+					display = total,average,min,max	
+				)
+				extra_guest_charge as "Extra Guest Charge"
+				(
+					display = total,average,min,max	
+				)
+				amenities as "Amenities"
+				room_description as "Room Description"
+				availability_status as "Availability Status"
+				housekeeping_status as "Housekeeping Status"
+				maintenance_notes as "Maintenance Notes"
+			)
+			options
+			(
+	 			display field = room_type
+	 		)
+		}
+		list payment_transaction_Report
+		{
+			displayName = "All Payment Transactions"
+			show all rows from payment_transaction    
+			(
+				booking as "Booking"
+				guest_name  as "Guest Name"
+				booking_amount as "Booking Amount"
+				(
+					display = total,average,min,max	
+				)
+				previous_payments as "Previous Payments"
+				(
+					display = total,average,min,max	
+				)
+				current_payment_amount as "Current Payment Amount"
+				(
+					display = total,average,min,max	
+				)
+				payment_date as "Payment Date"
+				payment_method as "Payment Method"
+				transaction_reference as "Transaction Reference"
+				payment_status as "Payment Status"
+				refund_amount as "Refund Amount"
+				(
+					display = total,average,min,max	
+				)
+				payment_notes as "Payment Notes"
+			)
+			conditional formatting
+			(
+				"New Formatting1"
+				{
+				condition = (payment_method == "Bank Transfer")
+				fields = [payment_method]
+				format = "color:#ffffff;background-color:#765f89;"
+				}
+				"New Formatting2"
+				{
+				condition = (payment_method == "Credit Card")
+				fields = [payment_method]
+				format = "color:#000000;background-color:#1bbc9b;"
+				}
+				"New Formatting3"
+				{
+				condition = (payment_method == "Debit Card")
+				fields = [payment_method]
+				format = "color:#ffffff;background-color:#e84c3d;"
+				}
+			)
+		}
+		kanban payment_transaction_by_payment_status
+		{
+			displayName = "Payment Statuses"
+			show all rows from payment_transaction    
+			(
+				booking as "Booking"
+				guest_name  as "Guest Name"
+				booking_amount as "Booking Amount"
+				(
+					display = total,average,min,max	
+				)
+				previous_payments as "Previous Payments"
+				(
+					display = total,average,min,max	
+				)
+				current_payment_amount as "Current Payment Amount"
+				(
+					display = total,average,min,max	
+				)
+				payment_date as "Payment Date"
+				payment_method as "Payment Method"
+				transaction_reference as "Transaction Reference"
+				payment_status as "Payment Status"
+				refund_amount as "Refund Amount"
+				(
+					display = total,average,min,max	
+				)
+				payment_notes as "Payment Notes"
+			)
+			options
+			(
+	 			display field = payment_status
+	 		)
+		}
+		list staff_profile_Report
+		{
+			displayName = "All Staff Profiles"
+			show all rows from staff_profile    
+			(
+				staff_id as "Staff Id"
+				staff_name  as "Staff Name"
+				email as "Email"
+				mobile_number as "Mobile Number"
+				department as "Department"
+				job_role as "Job Role"
+				joining_date as "Joining Date"
+				employment_status as "Employment Status"
+			)
+			conditional formatting
+			(
+				"New Formatting1"
+				{
+				condition = (department == "Accounts")
+				fields = [department]
+				format = "color:#ffffff;background-color:#765f89;"
+				}
+				"New Formatting2"
+				{
+				condition = (department == "Management")
+				fields = [department]
+				format = "color:#000000;background-color:#1bbc9b;"
+				}
+				"New Formatting3"
+				{
+				condition = (department == "Reception")
+				fields = [department]
+				format = "color:#ffffff;background-color:#e84c3d;"
+				}
+			)
+		}
+		kanban staff_profile_by_department
+		{
+			displayName = "Departments"
+			show all rows from staff_profile    
+			(
+				staff_id as "Staff Id"
+				staff_name  as "Staff Name"
+				email as "Email"
+				mobile_number as "Mobile Number"
+				department as "Department"
+				job_role as "Job Role"
+				joining_date as "Joining Date"
+				employment_status as "Employment Status"
+			)
+			options
+			(
+	 			display field = department
+	 		)
+		}
+		list offer_discount_Report
+		{
+			displayName = "All Discounts"
+			show all rows from offer_discount    
+			(
+				offer_name as "Offer Name"
+				offer_code as "Offer Code"
+				description as "Description"
+				discount_type as "Discount Type"
+				discount_value as "Discount Value"
+				valid_from as "Valid From"
+				valid_until as "Valid Until"
+				applicable_room_types as "Applicable Room Types"
+				minimum_stay as "Minimum Stay"
+				maximum_discount as "Maximum Discount"
+				(
+					display = total,average,min,max	
+				)
+				active_status as "Active Status"
+			)
+		}
+		list guest_feedback_Report
+		{
+			displayName = "All Guest Feedback"
+			show all rows from guest_feedback    
+			(
+				guest as "Guest"
+				booking as "Booking"
+				room_number as "Room Number"
+				overall_rating as "Overall Rating"
+				cleanliness_rating as "Cleanliness Rating"
+				staff_service_rating as "Staff Service Rating"
+				comfort_rating as "Comfort Rating"
+				feedback_comments as "Feedback Comments"
+				submission_date as "Submission Date"
+				follow_up_status as "Follow Up Status"
+			)
+			conditional formatting
+			(
+				"New Formatting1"
+				{
+				condition = (follow_up_status == "Resolved")
+				fields = [follow_up_status]
+				format = "color:#ffffff;background-color:#765f89;"
+				}
+			)
+		}
+		kanban guest_feedback_by_follow_up_status
+		{
+			displayName = "Guest Feedback Board"
+			show all rows from guest_feedback    
+			(
+				guest as "Guest"
+				booking as "Booking"
+				room_number as "Room Number"
+				overall_rating as "Overall Rating"
+				cleanliness_rating as "Cleanliness Rating"
+				staff_service_rating as "Staff Service Rating"
+				comfort_rating as "Comfort Rating"
+				feedback_comments as "Feedback Comments"
+				submission_date as "Submission Date"
+				follow_up_status as "Follow Up Status"
+			)
+			options
+			(
+	 			display field = follow_up_status
+	 		)
+		}
+	}
+	pages
+	{
+		page DashBoard
+		{
+			displayname = "Dashboard"
+			Content="<zml    \t\t\n\t\t\n\t\t\n\t\t\n\t\t\n>\n\t<layout>\n\t<row>\n\t<column\n   \t\t width='25%'\n   \t>\n\t<panel elementName='Panel 1'\n \n >\n\t<pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tpadding = '0px'\n\tbgColor = '#F97164'\n\n\t\twidth = '100%'\n\t\thAlign = 'left'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tpaddingTop = '20px'\n\tpaddingLeft = '20px'\n\tpaddingRight = '0px'\n\tpaddingBottom = '20px'\n\tbgColor = 'rgba(0, 0, 0, 0)'\n\n\t\twidth = '64%'\n\t\thAlign = 'left'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\n>\n\t<pr \n\t>\n\t<pc \n\t\n>\n\t<text \n\n\tmarginLeft = '0px'\n\tmarginRight = '0px' \n\tmarginTop = '8px'\n\tcolor = '#FFFFFF'\n\tsize = '24px'\n\tbold = 'true' \n\ttype = 'Form Data'\n\n\tbgColor = 'rgba(0, 0, 0, 0)'\n\n\n\tdisplayType = 'actual'\n\tdecimalPlaces = '2'\n\tthousandsSeperator = 'LOCALE'\n\tdecimalSeperator = 'DOT'\n\tnumberScale = 'none'\n\n\n\n\n\t  value = 'thisapp.booking_record.final_booking_amount.sum'\n>\n</text>\n\n</pc>\n</pr><pr \n\t>\n\t<pc \n\t\n>\n\t<text \n\n\tmarginLeft = '0px'\n\tmarginRight = '8px' \n\tmarginTop = '0px'\n\tcolor = '#FFFFFF'\n\tsize = '14px'\n\ttype = 'Text'\n\n\tbgColor = 'rgba(0, 0, 0, 0)'\n\n\n\n\n\n\n\t  value = 'Total Final Booking Amounts'\n>\n</text>\n\n</pc>\n</pr>\n</pc>\n</pr>\n</pc><pc \n\t\tpadding = '20px'\n\tbgColor = 'rgba(0, 0, 0, 0)'\n\n\t\twidth = '36%'\n\t\thAlign = 'right'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\n>\n\t<image  \n\t\tmarginLeft = '10px'\n\tmarginRight = '0px' \n\tmarginBottom = '0px'\n\tmarginTop = '0px'\n\n\tcolor = '#FFFFFF'\n\tbgColor = '#C75A50'\n\twidth = '40px'\n\theight = '40px'\n\ttype = 'icon'\n\tvalue = 'shopping-tag-sale'\n\tsize = '22px'\n\tcornerRadius = '10px'\n\ticonType = 'outline'\n/>\n</pc>\n</pr>\n</pc>\n</pr>\n</pc>\n</pr>\n</panel>\n</column><column\n   \t\t width='24%'\n   \t>\n\t<panel elementName='Panel 2'\n \n >\n\t<pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tpadding = '0px'\n\tbgColor = '#EEA131'\n\n\t\twidth = '100%'\n\t\thAlign = 'left'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tpaddingTop = '20px'\n\tpaddingLeft = '20px'\n\tpaddingRight = '0px'\n\tpaddingBottom = '20px'\n\tbgColor = 'rgba(0, 0, 0, 0)'\n\n\t\twidth = '65%'\n\t\thAlign = 'left'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\tpadding = '5px'\n\n>\n\t<pr \n\t>\n\t<pc \n\t\n>\n\t<text \n\n\tcolor = '#FFFFFF'\n\tsize = '24px'\n\tbold = 'true' \n\ttype = 'Form Data'\n\n\tbgColor = 'rgba(0, 0, 0, 0)'\n\n\n\tdisplayType = 'actual'\n\tdecimalPlaces = '2'\n\tthousandsSeperator = 'LOCALE'\n\tdecimalSeperator = 'DOT'\n\tnumberScale = 'none'\n\n\n\n\n\t  value = 'thisapp.booking_record.tax_amount.sum'\n>\n</text>\n\n</pc>\n</pr><pr \n\t>\n\t<pc \n\t\n>\n\t<text \n\n\tcolor = '#FFFFFF'\n\tsize = '14px'\n\ttype = 'Text'\n\n\tbgColor = 'rgba(0, 0, 0, 0)'\n\n\n\n\n\n\n\t  value = 'Total Tax Amounts'\n>\n</text>\n\n</pc>\n</pr>\n</pc>\n</pr>\n</pc><pc \n\t\tpadding = '20px'\n\tbgColor = 'rgba(0, 0, 0, 0)'\n\n\t\twidth = '35%'\n\t\thAlign = 'right'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\n>\n\t<image  \n\t\tmarginLeft = '10px'\n\tmarginBottom = '0px'\n\tmarginTop = '0px'\n\n\tcolor = '#FFFFFF'\n\tbgColor = '#BE8127'\n\twidth = '40px'\n\theight = '40px'\n\ttype = 'icon'\n\tvalue = 'business-money-coins'\n\tsize = '22px'\n\tcornerRadius = '10px'\n\ticonType = 'outline'\n/>\n</pc>\n</pr>\n</pc>\n</pr>\n</pc>\n</pr>\n</panel>\n</column><column\n   \t\t width='25%'\n   \t>\n\t<panel elementName='Panel 3'\n \n >\n\t<pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tpadding = '0px'\n\tbgColor = '#00CFA9'\n\n\t\twidth = '100%'\n\t\thAlign = 'left'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tpaddingTop = '20px'\n\tpaddingLeft = '20px'\n\tpaddingRight = '0px'\n\tpaddingBottom = '20px'\n\tbgColor = 'rgba(0, 0, 0, 0)'\n\n\t\twidth = '65%'\n\t\thAlign = 'left'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\tpadding = '5px'\n\n>\n\t<pr \n\t>\n\t<pc \n\t\n>\n\t<text \n\n\tcolor = '#FFFFFF'\n\tsize = '24px'\n\tbold = 'true' \n\ttype = 'Form Data'\n\n\tbgColor = 'transparent'\n\n\n\tdisplayType = 'actual'\n\tdecimalPlaces = '2'\n\tthousandsSeperator = 'LOCALE'\n\tdecimalSeperator = 'DOT'\n\tnumberScale = 'none'\n\n\n\n\n\t  value = 'thisapp.booking_record.discount_amount.sum'\n>\n</text>\n\n</pc>\n</pr><pr \n\t>\n\t<pc \n\t\n>\n\t<text \n\n\tcolor = '#FFFFFF'\n\tsize = '14px'\n\ttype = 'Text'\n\n\tbgColor = 'rgba(0, 0, 0, 0)'\n\n\n\n\n\n\n\t  value = 'Total Discount Amounts'\n>\n</text>\n\n</pc>\n</pr>\n</pc>\n</pr>\n</pc><pc \n\t\tpadding = '20px'\n\tbgColor = 'rgba(0, 0, 0, 0)'\n\n\t\twidth = '35%'\n\t\thAlign = 'right'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\n>\n\t<image  \n\t\tmarginLeft = '10px'\n\tmarginBottom = '0px'\n\tmarginTop = '0px'\n\n\tcolor = '#FFFFFF'\n\tbgColor = '#0BA385'\n\twidth = '40px'\n\theight = '40px'\n\ttype = 'icon'\n\tvalue = 'business-percentage-39'\n\tsize = '22px'\n\tcornerRadius = '10px'\n\ticonType = 'outline'\n/>\n</pc>\n</pr>\n</pc>\n</pr>\n</pc>\n</pr>\n</panel>\n</column><column\n   \t\t width='26%'\n   \t>\n\t<panel elementName='Panel 4'\n \n >\n\t<pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tpadding = '0px'\n\tbgColor = '#3E99DE'\n\n\t\twidth = '100%'\n\t\thAlign = 'left'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tpaddingTop = '20px'\n\tpaddingLeft = '20px'\n\tpaddingRight = '0px'\n\tpaddingBottom = '20px'\n\tbgColor = 'rgba(0, 0, 0, 0)'\n\n\t\twidth = '65%'\n\t\thAlign = 'left'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\tpadding = '5px'\n\n>\n\t<pr \n\t>\n\t<pc \n\t\n>\n\t<text \n\n\tcolor = '#FFFFFF'\n\tsize = '24px'\n\tbold = 'true' \n\ttype = 'Form Data'\n\n\tbgColor = 'rgba(0, 0, 0, 0)'\n\n\n\tdisplayType = 'actual'\n\tdecimalPlaces = '2'\n\tthousandsSeperator = 'LOCALE'\n\tdecimalSeperator = 'DOT'\n\tnumberScale = 'none'\n\n\n\n\n\t  value = 'thisapp.booking_record.room_price_per_night.sum'\n>\n</text>\n\n</pc>\n</pr><pr \n\t>\n\t<pc \n\t\n>\n\t<text \n\n\tcolor = '#FFFFFF'\n\tsize = '14px'\n\ttype = 'Text'\n\n\tbgColor = 'rgba(0, 0, 0, 0)'\n\n\n\n\n\n\n\t  value = 'Total Room Price Per Night'\n>\n</text>\n\n</pc>\n</pr>\n</pc>\n</pr>\n</pc><pc \n\t\tpadding = '20px'\n\tbgColor = 'rgba(0, 0, 0, 0)'\n\n\t\twidth = '35%'\n\t\thAlign = 'right'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\n>\n\t<image  \n\t\tmarginLeft = '10px'\n\tmarginBottom = '0px'\n\tmarginTop = '0px'\n\n\tcolor = '#FFFFFF'\n\tbgColor = '#0E78C9'\n\twidth = '40px'\n\theight = '40px'\n\ttype = 'icon'\n\tvalue = 'business-progress'\n\tsize = '22px'\n\tcornerRadius = '10px'\n\ticonType = 'outline'\n/>\n</pc>\n</pr>\n</pc>\n</pr>\n</pc>\n</pr>\n</panel>\n</column>\n</row><row>\n\t<column\n   \t\t width='100%'\n   \t>\n\t<panel elementName='Grouped_Panel 1'\n \n\t\n\ttitle = 'Meal Plan'\n\t\n\t\ttitleSize = '15px'\n            boldTitle = 'true'\n >\n\t<pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tpadding = '0px'\n\tbgColor = '#FFFFFF'\n\n\t\twidth = '100%'\n\t\thAlign = 'left'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tpadding = '20px'\n\tbgColor = '#FFFFFF'\n\n\t\twidth = '25%'\n\t\thAlign = 'center'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\n>\n\t<image  \n\t\tmarginLeft = '0px'\n\tmarginBottom = '0px'\n\tmarginTop = '0px'\n\n\tcolor = '#FFFFFF'\n\tbgColor = '#F97164'\n\twidth = '40px'\n\theight = '40px'\n\ttype = 'icon'\n\tvalue = 'food-croissant'\n\tsize = '22px'\n\tcornerRadius = '20px'\n\ticonType = 'outline'\n/>\n</pc><pc \n\t\tpaddingLeft = '10px'\n\tbgColor = 'rgba(0, 0, 0, 0)'\n\n\t\thAlign = 'left'\n>\n\t<pr \n\t>\n\t<pc \n\t\n>\n\t<text \n\n\tmarginLeft = '10px'\n\tmarginRight = '0px' \n\tmarginBottom = '0px'\n\tcolor = '#C75A50'\n\tsize = '28px'\n\tbold = 'true' \n\ttype = 'Form Data'\n\n\tbgColor = 'rgba(0, 0, 0, 0)'\n\n\n\tdisplayType = 'actual'\n\tthousandsSeperator = 'LOCALE'\n\tdecimalSeperator = 'DOT'\n\tnumberScale = 'none'\n\n\n\n\n\t\tcriteria = 'meal_plan == &quot;Breakfast Included&quot;'\n\t  value = 'thisapp.booking_record.meal_plan.count'\n>\n</text>\n\n</pc>\n</pr><pr \n\t>\n\t<pc \n\t\n>\n\t<text \n\n\tmarginLeft = '10px'\n\tcolor = '#595959'\n\tsize = '14px'\n\ttype = 'Text'\n\n\tbgColor = 'rgba(0, 0, 0, 0)'\n\n\n\n\n\n\n\t  value = 'Breakfast Included'\n>\n</text>\n\n</pc>\n</pr>\n</pc>\n</pr>\n</pc><pc \n\t\tpadding = '20px'\n\tbgColor = '#FFFFFF'\n\n\t\twidth = '25%'\n\t\thAlign = 'center'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\n>\n\t<image  \n\t\tmarginLeft = '0px'\n\tmarginBottom = '0px'\n\tmarginTop = '0px'\n\n\tcolor = '#FFFFFF'\n\tbgColor = '#EEA131'\n\twidth = '40px'\n\theight = '40px'\n\ttype = 'icon'\n\tvalue = 'media-1-edit-saturation'\n\tsize = '22px'\n\tcornerRadius = '20px'\n\ticonType = 'outline'\n/>\n</pc><pc \n\t\tpaddingLeft = '10px'\n\tbgColor = 'rgba(0, 0, 0, 0)'\n\n\t\thAlign = 'left'\n>\n\t<pr \n\t>\n\t<pc \n\t\n>\n\t<text \n\n\tmarginLeft = '10px'\n\tmarginRight = '0px' \n\tcolor = '#BE8127'\n\tsize = '28px'\n\tbold = 'true' \n\ttype = 'Form Data'\n\n\tbgColor = 'rgba(0, 0, 0, 0)'\n\n\n\tdisplayType = 'actual'\n\tthousandsSeperator = 'LOCALE'\n\tdecimalSeperator = 'DOT'\n\tnumberScale = 'none'\n\n\n\n\n\t\tcriteria = 'meal_plan == &quot;Half Board&quot;'\n\t  value = 'thisapp.booking_record.meal_plan.count'\n>\n</text>\n\n</pc>\n</pr><pr \n\t>\n\t<pc \n\t\n>\n\t<text \n\n\tmarginLeft = '10px'\n\tmarginRight = '0px' \n\tmarginTop = '0px'\n\tcolor = '#595959'\n\tsize = '14px'\n\ttype = 'Text'\n\n\tbgColor = 'rgba(0, 0, 0, 0)'\n\n\n\n\n\n\n\t  value = 'Half Board'\n>\n</text>\n\n</pc>\n</pr>\n</pc>\n</pr>\n</pc><pc \n\t\tpadding = '20px'\n\tbgColor = 'rgba(0, 0, 0, 0)'\n\n\t\twidth = '25%'\n\t\thAlign = 'center'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\n>\n\t<image  \n\t\tmarginLeft = '0px'\n\tmarginBottom = '0px'\n\tmarginTop = '0px'\n\n\tcolor = '#FFFFFF'\n\tbgColor = '#00CFA9'\n\twidth = '40px'\n\theight = '40px'\n\ttype = 'icon'\n\tvalue = 'media-2-remix'\n\tsize = '22px'\n\tcornerRadius = '20px'\n\ticonType = 'outline'\n/>\n</pc><pc \n\t\tpaddingLeft = '10px'\n\tbgColor = 'rgba(0, 0, 0, 0)'\n\n\t\thAlign = 'left'\n>\n\t<pr \n\t>\n\t<pc \n\t\n>\n\t<text \n\n\tmarginLeft = '10px'\n\tmarginRight = '0px' \n\tcolor = '#0BA385'\n\tsize = '28px'\n\tbold = 'true' \n\ttype = 'Form Data'\n\n\tbgColor = 'rgba(0, 0, 0, 0)'\n\n\n\tdisplayType = 'actual'\n\tthousandsSeperator = 'LOCALE'\n\tdecimalSeperator = 'DOT'\n\tnumberScale = 'none'\n\n\n\n\n\t\tcriteria = 'meal_plan == &quot;Full Board&quot;'\n\t  value = 'thisapp.booking_record.meal_plan.count'\n>\n</text>\n\n</pc>\n</pr><pr \n\t>\n\t<pc \n\t\n>\n\t<text \n\n\tmarginLeft = '10px'\n\tmarginRight = '0px' \n\tmarginTop = '0px'\n\tcolor = '#595959'\n\tsize = '14px'\n\ttype = 'Text'\n\n\tbgColor = 'rgba(0, 0, 0, 0)'\n\n\n\n\n\n\n\t  value = 'Full Boards'\n>\n</text>\n\n</pc>\n</pr>\n</pc>\n</pr>\n</pc><pc \n\t\tpadding = '20px'\n\tbgColor = 'rgba(0, 0, 0, 0)'\n\n\t\twidth = '25%'\n\t\thAlign = 'center'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\n>\n\t<image  \n\t\tmarginLeft = '0px'\n\tmarginBottom = '0px'\n\tmarginTop = '0px'\n\n\tcolor = '#FFFFFF'\n\tbgColor = '#3E99DE'\n\twidth = '40px'\n\theight = '40px'\n\ttype = 'icon'\n\tvalue = 'shopping-mobile-touch'\n\tsize = '22px'\n\tcornerRadius = '20px'\n\ticonType = 'outline'\n/>\n</pc><pc \n\t\tpaddingLeft = '10px'\n\tbgColor = 'rgba(0, 0, 0, 0)'\n\n\t\thAlign = 'left'\n>\n\t<pr \n\t>\n\t<pc \n\t\n>\n\t<text \n\n\tmarginLeft = '10px'\n\tmarginRight = '0px' \n\tcolor = '#0E78C9'\n\tsize = '28px'\n\tbold = 'true' \n\ttype = 'Form Data'\n\n\tbgColor = 'rgba(0, 0, 0, 0)'\n\n\n\tdisplayType = 'actual'\n\tthousandsSeperator = 'LOCALE'\n\tdecimalSeperator = 'DOT'\n\tnumberScale = 'none'\n\n\n\n\n\t\tcriteria = 'meal_plan == &quot;Room Only&quot;'\n\t  value = 'thisapp.booking_record.meal_plan.count'\n>\n</text>\n\n</pc>\n</pr><pr \n\t>\n\t<pc \n\t\n>\n\t<text \n\n\tmarginLeft = '10px'\n\tmarginRight = '0px' \n\tmarginTop = '0px'\n\tcolor = '#595959'\n\tsize = '14px'\n\ttype = 'Text'\n\n\tbgColor = 'rgba(0, 0, 0, 0)'\n\n\n\n\n\n\n\t  value = 'Room Only'\n>\n</text>\n\n</pc>\n</pr>\n</pc>\n</pr>\n</pc>\n</pr>\n</pc>\n</pr>\n</panel>\n</column>\n</row><row>\n\t<column\n   \t\t width='24%'\n   \t>\n\t<panel elementName='Panel_Button 1'\n \n\t\n\ttitle = 'Quick Links'\n\t\n\t\ttitleSize = '15px'\n            boldTitle = 'true'\n >\n\t<pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tbgColor = '#CB6711'\n\n\t\twidth = '2%'\n\t\thAlign = 'left'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\n>\n\t\n</pc>\n</pr>\n</pc><pc \n\t\tpaddingTop = '10px'\n\tpaddingLeft = '0px'\n\tpaddingRight = '0px'\n\tpaddingBottom = '10px'\n\tbgColor = '#FFFFFF'\n\n    action = 'OpenForm'\n\t\tcomponentLinkName = 'booking_record'\n\t\ttarget = 'new-window'\n\t\twidth = '98%'\n\t\thAlign = 'center'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\n>\n\t<image  \n\t\tmarginLeft = '0px'\n\tmarginRight = '6px' \n\n\tcolor = '#3F3F3F'\n\tbgColor = 'rgba(0, 0, 0, 0)'\n\twidth = '40px'\n\theight = '40px'\n\ttype = 'icon'\n\tvalue = 'ui-2-square-add-08'\n\tsize = '14px'\n\tcornerRadius = '20px'\n\ticonType = 'outline'\n/>\n</pc><pc \n\t\n>\n\t<text \n\n\tcolor = '#595959'\n\tsize = '14px'\n\ttype = 'Text'\n\n\tbgColor = 'rgba(0, 0, 0, 0)'\n\n\n\n\n\n\n\t  value = 'Add New Booking Record'\n>\n</text>\n\n</pc>\n</pr>\n</pc>\n</pr>\n</panel>\n</column><column\n   \t\t width='27%'\n   \t>\n\t<panel elementName='Panel_Button 2'\n \n >\n\t<pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tbgColor = '#CB6711'\n\n\t\twidth = '2%'\n\t\thAlign = 'left'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\n>\n\t\n</pc>\n</pr>\n</pc><pc \n\t\tpaddingTop = '10px'\n\tpaddingLeft = '0px'\n\tpaddingRight = '0px'\n\tpaddingBottom = '10px'\n\tbgColor = '#FFFFFF'\n\n    action = 'OpenForm'\n\t\tcomponentLinkName = 'check_in_log'\n\t\ttarget = 'new-window'\n\t\twidth = '98%'\n\t\thAlign = 'center'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\n>\n\t<image  \n\t\tmarginLeft = '0px'\n\tmarginRight = '6px' \n\n\tcolor = '#3F3F3F'\n\tbgColor = 'rgba(0, 0, 0, 0)'\n\twidth = '40px'\n\theight = '40px'\n\ttype = 'icon'\n\tvalue = 'ui-2-square-add-08'\n\tsize = '14px'\n\tcornerRadius = '20px'\n\ticonType = 'outline'\n/>\n</pc><pc \n\t\n>\n\t<text \n\n\tcolor = '#3F3F3F'\n\tsize = '14px'\n\ttype = 'Text'\n\n\tbgColor = 'rgba(0, 0, 0, 0)'\n\n\n\n\n\n\n\t  value = 'Add New Check In Log'\n>\n</text>\n\n</pc>\n</pr>\n</pc>\n</pr>\n</panel>\n</column><column\n   \t\t width='25%'\n   \t>\n\t<panel elementName='Panel_Button 3'\n \n >\n\t<pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tbgColor = '#CB6711'\n\n\t\twidth = '2%'\n\t\thAlign = 'left'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\n>\n\t\n</pc>\n</pr>\n</pc><pc \n\t\tpaddingTop = '10px'\n\tpaddingLeft = '0px'\n\tpaddingRight = '0px'\n\tpaddingBottom = '10px'\n\tbgColor = '#FFFFFF'\n\n    action = 'OpenForm'\n\t\tcomponentLinkName = 'housekeeping_task'\n\t\ttarget = 'new-window'\n\t\twidth = '98%'\n\t\thAlign = 'center'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\n>\n\t<image  \n\t\tmarginLeft = '0px'\n\tmarginRight = '6px' \n\n\tcolor = '#3F3F3F'\n\tbgColor = 'rgba(0, 0, 0, 0)'\n\twidth = '40px'\n\theight = '40px'\n\ttype = 'icon'\n\tvalue = 'ui-2-square-add-08'\n\tsize = '14px'\n\tcornerRadius = '20px'\n\ticonType = 'outline'\n/>\n</pc><pc \n\t\n>\n\t<text \n\n\tcolor = '#3F3F3F'\n\tsize = '14px'\n\ttype = 'Text'\n\n\tbgColor = 'rgba(0, 0, 0, 0)'\n\n\n\n\n\n\n\t  value = 'Add New Housekeeping Task'\n>\n</text>\n\n</pc>\n</pr>\n</pc>\n</pr>\n</panel>\n</column><column\n   \t\t width='24%'\n   \t>\n\t<panel elementName='Panel_Button 4'\n \n >\n\t<pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tbgColor = '#CB6711'\n\n\t\twidth = '2%'\n\t\thAlign = 'left'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\n>\n\t\n</pc>\n</pr>\n</pc><pc \n\t\tpaddingTop = '10px'\n\tpaddingLeft = '0px'\n\tpaddingRight = '0px'\n\tpaddingBottom = '10px'\n\tbgColor = '#FFFFFF'\n\n    action = 'OpenForm'\n\t\tcomponentLinkName = 'guest_profile'\n\t\ttarget = 'new-window'\n\t\twidth = '98%'\n\t\thAlign = 'center'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\n>\n\t<image  \n\t\tmarginLeft = '0px'\n\tmarginRight = '6px' \n\n\tcolor = '#3F3F3F'\n\tbgColor = 'rgba(0, 0, 0, 0)'\n\twidth = '40px'\n\theight = '40px'\n\ttype = 'icon'\n\tvalue = 'ui-2-square-add-08'\n\tsize = '14px'\n\tcornerRadius = '20px'\n\ticonType = 'outline'\n/>\n</pc><pc \n\t\n>\n\t<text \n\n\tcolor = '#3F3F3F'\n\tsize = '14px'\n\ttype = 'Text'\n\n\tbgColor = 'rgba(0, 0, 0, 0)'\n\n\n\n\n\n\n\t  value = 'Add New Guest Profile'\n>\n</text>\n\n</pc>\n</pr>\n</pc>\n</pr>\n</panel>\n</column>\n</row><row>\n\t<column\n   \t\t width='50%'\n   \t>\n\t<chart \n\telementName='Chart 1'\n\n\t\n\ttitle = 'Current Payment Amount by Booking Amount'\n\t\n\t\ttitleSize = '16px'\n\ttype = 'Scatter'\n\txtitle = 'Current Payment Amount'\n\tytitle = 'Booking Amount'\n\tbgColor = 'rgb(255, 255, 255)'\n\ttheme = '#f37d16'\n\tlegendPos = 'none'\n\theightType = 'auto'\n\theightValue = '300px'\n\tappLinkName = 'thisapp'\n\tformLinkName = 'payment_transaction'\n\txfield = 'current_payment_amount'\n\tyfields = 'value:booking_amount'\n\tgroupBy = 'booking'\n\t\tDelugeCriteria = 'current_payment_amount is not null'\n/>\n\n</column><column\n   \t\t width='50%'\n   \t>\n\t<chart \n\telementName='Chart 2'\n\n\t\n\ttitle = 'Max Child Capacity by Extra Guest Charge'\n\t\n\t\ttitleSize = '16px'\n\ttype = 'Scatter'\n\txtitle = 'Max Child Capacity'\n\tytitle = 'Extra Guest Charge'\n\tbgColor = 'rgb(255, 255, 255)'\n\ttheme = 'theme1'\n\tlegendPos = 'none'\n\theightType = 'auto'\n\theightValue = '300px'\n\tappLinkName = 'thisapp'\n\tformLinkName = 'room_master'\n\txfield = 'max_child_capacity'\n\tyfields = 'value:extra_guest_charge'\n\tgroupBy = 'room_id'\n\t\tDelugeCriteria = 'max_child_capacity is not null'\n/>\n\n</column>\n</row><row>\n\t<column\n   \t\t width='100%'\n   \t>\n\t<report \n\telementName='Report'\n\n\t\tappLinkName = 'thisapp'\n\t\tlinkName = 'booking_record_Report'\n\t\n\t\tiszreport = 'false'\n\t\t\t\t\tzc_AddRec = 'false'\n\t\t\t\t\tzc_EditRec = 'false'\n\t\t\t\t\tzc_Print = 'false'\n\t\t\t\t\tzc_Export = 'false'\n\t\t\t\t\tzc_DelRec = 'false'\n\t\t\t\t\tzc_DuplRec = 'false'\n\t\t\t\t\tzc_Search = 'false'\n\t\t\t\t\tzc_EditBulkRec = 'false'\n\t\t\t\t\tzc_BulkDelete = 'false'\n\t\t\t\t\tzc_BulkDuplicate = 'false'\n\theightType = 'auto'\n\theightValue = '700'\n/>\n</column>\n</row>\n</layout>\n</zml>"
+		}
+	}
+
+
+
+
+		workflow
+		{
+		form
+		{
+			auto_calculate_booking_total as "Auto-calculate Booking Total"
+			{
+				type =  form
+				form = booking_record
+
+				record event = on add
+
+				on load
+				{
+					actions 
+					{
+						custom deluge script
+						(
+											// Calculate base amount from number of nights and room price per night
+										baseAmount = input.number_of_nights * input.room_price_per_night;
+										// Calculate discount amount if discount is provided
+										discountAmount = input.discount_amount;
+										// Calculate extra charges
+										extraCharges = input.extra_charges;
+										// Calculate tax amount (assuming 18% tax rate, adjust if needed)
+										taxAmount = (baseAmount - discountAmount + extraCharges) * 0.18;
+										// Calculate final booking amount
+										finalBookingAmount = baseAmount - discountAmount + extraCharges + taxAmount;
+										// Set the calculated values to the form fields
+										input.final_booking_amount = finalBookingAmount;
+										input.tax_amount = taxAmount;
+						)
+					}
+				}
+
+			}
+			vip_guest_welcome_email as "VIP Guest Welcome Email"
+			{
+				type =  form
+				form = booking_record
+
+				record event = on add
+
+				on success
+				{
+					actions 
+					{
+						custom deluge script
+						(
+											// Fetch the guest profile linked to the booking
+										guestRecord = guest_profile[ID == input.guest];
+										// Check if the guest is a VIP
+										if(guestRecord.is_vip == true)
+										{
+											// Get guest details
+											guestEmail = guestRecord.email;
+											guestName = guestRecord.full_name.first_name;
+											bookingId = input.booking_id;
+											checkInDate = input.check_in_date;
+											roomName = input.room.room_name;
+											// Validate email is not null or empty
+											if(guestEmail.isNull() && guestEmail.isEmpty())
+											{
+												info "Guest email is missing for VIP: " + guestName;
+											}
+											else
+											{
+												// Send welcome email to VIP guest
+												sendmail
+												[
+													from :zoho.loginuserid
+													to :guestEmail
+													subject :"Welcome to Our Hotel - Booking Confirmation #" + bookingId.toString()
+													message :"Dear " + guestName + ",\n\nThank you for choosing our hotel!\n\nYour booking has been confirmed with the following details:\n\nBooking ID: " + bookingId.toString() + "\nCheck-in Date: " + checkInDate.toString() + "\nRoom: " + roomName + "\n\nWe look forward to welcoming you!\n\nBest regards,\nHotel Management Team"
+												]
+											}
+										}
+						)
+					}
+				}
+
+			}
+		}
+
+
+
+
+		blueprint
+		{
+    			guest_check_out_process as "Guest Check-Out Process"
+    			{
+        			type = Blueprint
+        			form = check_out_log
+        			start
+        			{
+            			start stage = "Check Out Initiated"
+        			}
+        			stages
+        			{
+           			"Check Out Initiated"
+           			{
+           			}
+           			"Billing Calculation"
+           			{
+           			}
+           			"Check Out Cancelled"
+           			{
+           			}
+           			"Room Inspection"
+           			{
+           			}
+           			"Billing Dispute"
+           			{
+           			}
+           			"Billing Finalization"
+           			{
+           			}
+           			"Damage Assessment"
+           			{
+           			}
+           			"Payment Processing"
+           			{
+           			}
+           			"Check Out Completed"
+           			{
+           			}
+           			"Payment Failed"
+           			{
+           			}
+           			"Check Out Closed"
+           			{
+           			}
+        			}
+        			transitions
+        			{
+    				add_damage_charges as "Add Damage Charges"
+    				{
+         				type = normal
+         				from stage = "Damage Assessment"
+         				to stage = "Billing Calculation"
+         				before
+         				{
+         				}
+         				after
+         				{
+         				}
+  				}
+    				approve_room_condition as "Approve Room Condition"
+    				{
+         				type = normal
+         				from stage = "Room Inspection"
+         				to stage = "Billing Finalization"
+         				before
+         				{
+         				}
+         				after
+         				{
+         				}
+  				}
+    				calculate_final_bill as "Calculate Final Bill"
+    				{
+         				type = normal
+         				from stage = "Check Out Initiated"
+         				to stage = "Billing Calculation"
+         				before
+         				{
+         				}
+         				after
+         				{
+         				}
+  				}
+    				cancel_check_out as "Cancel Check Out"
+    				{
+         				type = normal
+         				from stage = "Check Out Initiated"
+         				to stage = "Check Out Cancelled"
+         				before
+         				{
+         				}
+         				after
+         				{
+         				}
+  				}
+    				close_check_out_log as "Close Check Out Log"
+    				{
+         				type = normal
+         				from stage = "Check Out Completed"
+         				to stage = "Check Out Closed"
+         				before
+         				{
+         				}
+         				after
+         				{
+         				}
+  				}
+    				confirm_payment_success as "Confirm Payment Success"
+    				{
+         				type = normal
+         				from stage = "Payment Processing"
+         				to stage = "Check Out Completed"
+         				before
+         				{
+         				}
+         				after
+         				{
+         				}
+  				}
+    				escalate_management as "Escalate to Management"
+    				{
+         				type = normal
+         				from stage = "Payment Failed"
+         				to stage = "Check Out Initiated"
+         				before
+         				{
+         				}
+         				after
+         				{
+         				}
+  				}
+    				flag_dispute as "Flag Billing Dispute"
+    				{
+         				type = normal
+         				from stage = "Billing Calculation"
+         				to stage = "Billing Dispute"
+         				before
+         				{
+         				}
+         				after
+         				{
+         				}
+  				}
+    				initiate_payment as "Initiate Payment"
+    				{
+         				type = normal
+         				from stage = "Billing Finalization"
+         				to stage = "Payment Processing"
+         				before
+         				{
+         				}
+         				after
+         				{
+         				}
+  				}
+    				mark_payment_failed as "Mark Payment Failed"
+    				{
+         				type = normal
+         				from stage = "Payment Processing"
+         				to stage = "Payment Failed"
+         				before
+         				{
+         				}
+         				after
+         				{
+         				}
+  				}
+    				proceed_to_inspection as "Proceed to Inspection"
+    				{
+         				type = normal
+         				from stage = "Billing Calculation"
+         				to stage = "Room Inspection"
+         				before
+         				{
+         				}
+         				after
+         				{
+         				}
+  				}
+    				process_waiver as "Process Waiver"
+    				{
+         				type = normal
+         				from stage = "Billing Finalization"
+         				to stage = "Check Out Completed"
+         				before
+         				{
+         				}
+         				after
+         				{
+         				}
+  				}
+    				reevaluate_charges as "Re-evaluate Charges"
+    				{
+         				type = normal
+         				from stage = "Room Inspection"
+         				to stage = "Billing Calculation"
+         				before
+         				{
+         				}
+         				after
+         				{
+         				}
+  				}
+    				report_damage as "Report Room Damage"
+    				{
+         				type = normal
+         				from stage = "Room Inspection"
+         				to stage = "Damage Assessment"
+         				before
+         				{
+         				}
+         				after
+         				{
+         				}
+  				}
+    				request_inspection as "Request Further Inspection"
+    				{
+         				type = normal
+         				from stage = "Damage Assessment"
+         				to stage = "Check Out Initiated"
+         				before
+         				{
+         				}
+         				after
+         				{
+         				}
+  				}
+    				retry_payment as "Retry Payment"
+    				{
+         				type = normal
+         				from stage = "Payment Processing"
+         				to stage = "Billing Finalization"
+         				before
+         				{
+         				}
+         				after
+         				{
+         				}
+  				}
+    				revert_initiation as "Revert to Initiation"
+    				{
+         				type = normal
+         				from stage = "Billing Calculation"
+         				to stage = "Check Out Initiated"
+         				before
+         				{
+         				}
+         				after
+         				{
+         				}
+  				}
+        			}
+    			}
+		}
+
+
+	}
+	share_settings
+	{
+			"Read"
+			{
+				name = "Read"
+				type = Users_Permissions
+				permissions = {Chat:true, Predefined:true, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "This profile will have read permission for all components\n"
+			}
+			"Write"
+			{
+				name = "Write"
+				type = Users_Permissions
+				permissions = {Chat:true, Predefined:true, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "This profile will have write permission for all components\n"
+			}
+			"Developer"
+			{
+				name = "Developer"
+				type = Developer
+				permissions = {Chat:false, Predefined:true, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "Developer Profile\n"
+			}
+			"Administrator"
+			{
+				name = "Administrator"
+				type = Users_Permissions
+				permissions = {Chat:true, Predefined:true, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "This profile will have all the permissions.\n"
+			}
+			"Customer"
+			{
+				name = "Customer"
+				type = Customer_Portal
+				permissions = {Chat:true, Predefined:true, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "This is the default profile having only add and view permission.\n"
+			}
+			"Guest"
+			{
+				name = "Guest"
+				type = Customer_Portal
+				permissions = {Chat:false, Predefined:false, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "Browse available rooms and submit booking requests \n"
+				ModulePermissions
+				{
+					guest_profile
+					{
+						allFieldsVisible= true 
+						ReportPermissions
+						{
+							guest_profile_by_guest_category={"View"}
+							guest_profile_Report={"View"}
+						}
+					}
+					payment_transaction
+					{
+						enabled= Create,Tab 
+						allFieldsVisible= true 
+						ReportPermissions
+						{
+							payment_transaction_Report={"View"}
+							payment_transaction_by_payment_status={"View"}
+						}
+					}
+					booking_record
+					{
+						enabled= Create,Tab 
+						allFieldsVisible= true 
+						ReportPermissions
+						{
+							booking_record_Report={"View"}
+							booking_record_by_booking_status={"View"}
+						}
+					}
+					guest_feedback
+					{
+						enabled= Create,Tab 
+						allFieldsVisible= true 
+						ReportPermissions
+						{
+							guest_feedback_Report={"View"}
+							guest_feedback_by_follow_up_status={"View"}
+						}
+					}
+				}
+			}
+			roles
+			{
+				"CEO"
+				{
+					description = "User belonging to this role can access data of all other users."
+				}
+			}
+	}
+
+
+	web
+	{
+		forms
+		{
+			form booking_record
+			{
+				label placement = left
+			}
+			form check_in_log
+			{
+				label placement = left
+			}
+			form check_out_log
+			{
+				label placement = left
+			}
+			form guest_feedback
+			{
+				label placement = left
+			}
+			form guest_profile
+			{
+				label placement = left
+			}
+			form housekeeping_task
+			{
+				label placement = left
+			}
+			form offer_discount
+			{
+				label placement = left
+			}
+			form payment_transaction
+			{
+				label placement = left
+			}
+			form room_master
+			{
+				label placement = left
+			}
+			form staff_profile
+			{
+				label placement = left
+			}
+		}
+		reports
+		{
+			report booking_record_Report
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								booking_id as "Booking Id"
+								booking_date as "Booking Date"
+								guest as "Guest"
+								room as "Room"
+								check_in_date as "Check In Date"
+								check_out_date as "Check Out Date"
+								number_of_adults as "Number Of Adults"
+								number_of_children as "Number Of Children"
+								number_of_rooms as "Number Of Rooms"
+								meal_plan as "Meal Plan"
+								booking_source as "Booking Source"
+								special_requests as "Special Requests"
+								room_price_per_night as "Room Price Per Night"
+								number_of_nights as "Number Of Nights"
+								extra_charges as "Extra Charges"
+								discount_amount as "Discount Amount"
+								tax_amount as "Tax Amount"
+								final_booking_amount as "Final Booking Amount"
+								payment_status as "Payment Status"
+								booking_status as "Booking Status"
+								staff_member as "Staff Member"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+								Print 
+								Add 
+								Import 
+								Export 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+							Print   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+							Print   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+		     				title = "Overview"
+							fields
+							(
+								booking_id as "Booking Id"
+								booking_date as "Booking Date"
+								guest as "Guest"
+								room as "Room"
+								check_in_date as "Check In Date"
+								check_out_date as "Check Out Date"
+								number_of_adults as "Number Of Adults"
+								number_of_children as "Number Of Children"
+								number_of_rooms as "Number Of Rooms"
+								meal_plan as "Meal Plan"
+								booking_source as "Booking Source"
+								special_requests as "Special Requests"
+								room_price_per_night as "Room Price Per Night"
+								number_of_nights as "Number Of Nights"
+								extra_charges as "Extra Charges"
+								discount_amount as "Discount Amount"
+								tax_amount as "Tax Amount"
+								final_booking_amount as "Final Booking Amount"
+								payment_status as "Payment Status"
+								booking_status as "Booking Status"
+								staff_member as "Staff Member"
+							)
+						)
+						datablock2
+						(
+		     				title = "Room"
+		     				related field = room
+							fields
+							(
+								room_id as "Room Id"
+								room_number as "Room Number"
+								room_name as "Room Name"
+								floor_number as "Floor Number"
+								building_wing as "Building Or Wing"
+								room_type as "Room Type"
+								bed_type as "Bed Type"
+								max_adult_capacity as "Max Adult Capacity"
+								max_child_capacity as "Max Child Capacity"
+								price_per_night as "Price Per Night"
+								extra_guest_charge as "Extra Guest Charge"
+								amenities as "Amenities"
+								room_description as "Room Description"
+								availability_status as "Availability Status"
+								housekeeping_status as "Housekeeping Status"
+								maintenance_notes as "Maintenance Notes"
+							)
+						)
+						datablock3
+						(
+		     				title = "Staff Member"
+		     				related field = staff_member
+							fields
+							(
+								staff_id as "Staff Id"
+								staff_name as "Staff Name"
+								email as "Email"
+								mobile_number as "Mobile Number"
+								department as "Department"
+								job_role as "Job Role"
+								joining_date as "Joining Date"
+								employment_status as "Employment Status"
+							)
+						)
+						datablock4
+						(
+		     				title = "Guest"
+		     				related field = guest
+							fields
+							(
+								guest_id as "Guest Id"
+								full_name as "Full Name"
+								email as "Email Address"
+								mobile_number as "Mobile Number"
+								alternate_mobile as "Alternate Mobile"
+								date_of_birth as "Date Of Birth"
+								gender as "Gender"
+								address as "Address"
+								postal_code1 as "Postal Code"
+								id_proof_type as "ID Proof Type"
+								id_proof_number as "ID Proof Number"
+								guest_category as "Guest Category"
+								is_vip as "Is VIP Guest"
+								special_requirements as "Special Requirements"
+								guest_notes as "Guest Notes"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+								Print 
+							)
+						)
+				)
+			}
+			report booking_record_by_booking_status
+			{
+				quickview
+				(
+					layout
+					(
+		 				type = 1
+						datablock1
+						(
+							layout type = 1
+							fields
+							(
+								booking_id as "Booking Id"
+								booking_date as "Booking Date"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+								Print 
+								Add 
+								Import 
+								Export 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+							Print   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+							Print   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								booking_id as "Booking Id"
+								booking_date as "Booking Date"
+								guest as "Guest"
+								room as "Room"
+								check_in_date as "Check In Date"
+								check_out_date as "Check Out Date"
+								number_of_adults as "Number Of Adults"
+								number_of_children as "Number Of Children"
+								number_of_rooms as "Number Of Rooms"
+								meal_plan as "Meal Plan"
+								booking_source as "Booking Source"
+								special_requests as "Special Requests"
+								room_price_per_night as "Room Price Per Night"
+								number_of_nights as "Number Of Nights"
+								extra_charges as "Extra Charges"
+								discount_amount as "Discount Amount"
+								tax_amount as "Tax Amount"
+								final_booking_amount as "Final Booking Amount"
+								payment_status as "Payment Status"
+								booking_status as "Booking Status"
+								staff_member as "Staff Member"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+								Print 
+							)
+						)
+				)
+			}
+			report check_in_log_Report
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								booking as "Booking"
+								guest_name as "Guest Name"
+								room_number as "Room Number"
+								actual_check_in_date as "Actual Check In Date"
+								actual_check_in_time as "Actual Check In Time"
+								number_of_guests as "Number Of Guests"
+								id_verification_status as "ID Verification Status"
+								key_issued as "Key Or Access Card Issued"
+								staff_member as "Staff Member"
+								check_in_notes as "Check In Notes"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+								Print 
+								Add 
+								Import 
+								Export 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+							Print   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+							Print   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+		     				title = "Overview"
+							fields
+							(
+								booking as "Booking"
+								guest_name as "Guest Name"
+								room_number as "Room Number"
+								actual_check_in_date as "Actual Check In Date"
+								actual_check_in_time as "Actual Check In Time"
+								number_of_guests as "Number Of Guests"
+								id_verification_status as "ID Verification Status"
+								key_issued as "Key Or Access Card Issued"
+								staff_member as "Staff Member"
+								check_in_notes as "Check In Notes"
+							)
+						)
+						datablock2
+						(
+		     				title = "Staff Member"
+		     				related field = staff_member
+							fields
+							(
+								staff_id as "Staff Id"
+								staff_name as "Staff Name"
+								email as "Email"
+								mobile_number as "Mobile Number"
+								department as "Department"
+								job_role as "Job Role"
+								joining_date as "Joining Date"
+								employment_status as "Employment Status"
+							)
+						)
+						datablock3
+						(
+		     				title = "Booking"
+		     				related field = booking
+							fields
+							(
+								booking_id as "Booking Id"
+								booking_date as "Booking Date"
+								guest as "Guest"
+								room as "Room"
+								check_in_date as "Check In Date"
+								check_out_date as "Check Out Date"
+								number_of_adults as "Number Of Adults"
+								number_of_children as "Number Of Children"
+								number_of_rooms as "Number Of Rooms"
+								meal_plan as "Meal Plan"
+								booking_source as "Booking Source"
+								special_requests as "Special Requests"
+								room_price_per_night as "Room Price Per Night"
+								number_of_nights as "Number Of Nights"
+								extra_charges as "Extra Charges"
+								discount_amount as "Discount Amount"
+								tax_amount as "Tax Amount"
+								final_booking_amount as "Final Booking Amount"
+								payment_status as "Payment Status"
+								booking_status as "Booking Status"
+								staff_member as "Staff Member"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+								Print 
+							)
+						)
+				)
+			}
+			report check_in_log_by_id_verification_status
+			{
+				quickview
+				(
+					layout
+					(
+		 				type = 1
+						datablock1
+						(
+							layout type = 1
+							fields
+							(
+								guest_name as "Guest Name"
+								room_number as "Room Number"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+								Print 
+								Add 
+								Import 
+								Export 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+							Print   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+							Print   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								booking as "Booking"
+								guest_name as "Guest Name"
+								room_number as "Room Number"
+								actual_check_in_date as "Actual Check In Date"
+								actual_check_in_time as "Actual Check In Time"
+								number_of_guests as "Number Of Guests"
+								id_verification_status as "ID Verification Status"
+								key_issued as "Key Or Access Card Issued"
+								staff_member as "Staff Member"
+								check_in_notes as "Check In Notes"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+								Print 
+							)
+						)
+				)
+			}
+			report housekeeping_task_Report
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								room as "Room"
+								task_type as "Task Type"
+								assigned_staff as "Assigned Staff"
+								task_date as "Task Date"
+								start_time as "Start Time"
+								completion_time as "Completion Time"
+								cleaning_status as "Cleaning Status"
+								inspection_status as "Inspection Status"
+								maintenance_notes as "Maintenance Notes"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+								Print 
+								Add 
+								Import 
+								Export 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+							Print   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+							Print   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+		     				title = "Overview"
+							fields
+							(
+								room as "Room"
+								task_type as "Task Type"
+								assigned_staff as "Assigned Staff"
+								task_date as "Task Date"
+								start_time as "Start Time"
+								completion_time as "Completion Time"
+								cleaning_status as "Cleaning Status"
+								inspection_status as "Inspection Status"
+								maintenance_notes as "Maintenance Notes"
+							)
+						)
+						datablock2
+						(
+		     				title = "Room"
+		     				related field = room
+							fields
+							(
+								room_id as "Room Id"
+								room_number as "Room Number"
+								room_name as "Room Name"
+								floor_number as "Floor Number"
+								building_wing as "Building Or Wing"
+								room_type as "Room Type"
+								bed_type as "Bed Type"
+								max_adult_capacity as "Max Adult Capacity"
+								max_child_capacity as "Max Child Capacity"
+								price_per_night as "Price Per Night"
+								extra_guest_charge as "Extra Guest Charge"
+								amenities as "Amenities"
+								room_description as "Room Description"
+								availability_status as "Availability Status"
+								housekeeping_status as "Housekeeping Status"
+								maintenance_notes as "Maintenance Notes"
+							)
+						)
+						datablock3
+						(
+		     				title = "Assigned Staff"
+		     				related field = assigned_staff
+							fields
+							(
+								staff_id as "Staff Id"
+								staff_name as "Staff Name"
+								email as "Email"
+								mobile_number as "Mobile Number"
+								department as "Department"
+								job_role as "Job Role"
+								joining_date as "Joining Date"
+								employment_status as "Employment Status"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+								Print 
+							)
+						)
+				)
+			}
+			report housekeeping_task_by_task_type
+			{
+				quickview
+				(
+					layout
+					(
+		 				type = 1
+						datablock1
+						(
+							layout type = 1
+							fields
+							(
+								room as "Room"
+								assigned_staff as "Assigned Staff"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+								Print 
+								Add 
+								Import 
+								Export 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+							Print   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+							Print   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								room as "Room"
+								task_type as "Task Type"
+								assigned_staff as "Assigned Staff"
+								task_date as "Task Date"
+								start_time as "Start Time"
+								completion_time as "Completion Time"
+								cleaning_status as "Cleaning Status"
+								inspection_status as "Inspection Status"
+								maintenance_notes as "Maintenance Notes"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+								Print 
+							)
+						)
+				)
+			}
+			report guest_profile_Report
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								guest_id as "Guest Id"
+								full_name as "Full Name"
+								email as "Email Address"
+								mobile_number as "Mobile Number"
+								alternate_mobile as "Alternate Mobile"
+								date_of_birth as "Date Of Birth"
+								gender as "Gender"
+								address as "Address"
+								postal_code1 as "Postal Code"
+								id_proof_type as "ID Proof Type"
+								id_proof_number as "ID Proof Number"
+								guest_category as "Guest Category"
+								is_vip as "Is VIP Guest"
+								special_requirements as "Special Requirements"
+								guest_notes as "Guest Notes"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+								Print 
+								Add 
+								Import 
+								Export 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+							Print   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+							Print   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+		     				title = "Overview"
+							fields
+							(
+								guest_id as "Guest Id"
+								full_name as "Full Name"
+								email as "Email Address"
+								mobile_number as "Mobile Number"
+								alternate_mobile as "Alternate Mobile"
+								date_of_birth as "Date Of Birth"
+								gender as "Gender"
+								address as "Address"
+								postal_code1 as "Postal Code"
+								id_proof_type as "ID Proof Type"
+								id_proof_number as "ID Proof Number"
+								guest_category as "Guest Category"
+								is_vip as "Is VIP Guest"
+								special_requirements as "Special Requirements"
+								guest_notes as "Guest Notes"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+								Print 
+							)
+						)
+				)
+			}
+			report guest_profile_by_guest_category
+			{
+				quickview
+				(
+					layout
+					(
+		 				type = 1
+						datablock1
+						(
+							layout type = 1
+							fields
+							(
+								full_name as "Full Name"
+								postal_code1 as "Postal Code"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+								Print 
+								Add 
+								Import 
+								Export 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+							Print   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+							Print   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								guest_id as "Guest Id"
+								full_name as "Full Name"
+								email as "Email Address"
+								mobile_number as "Mobile Number"
+								alternate_mobile as "Alternate Mobile"
+								date_of_birth as "Date Of Birth"
+								gender as "Gender"
+								address as "Address"
+								postal_code1 as "Postal Code"
+								id_proof_type as "ID Proof Type"
+								id_proof_number as "ID Proof Number"
+								guest_category as "Guest Category"
+								is_vip as "Is VIP Guest"
+								special_requirements as "Special Requirements"
+								guest_notes as "Guest Notes"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+								Print 
+							)
+						)
+				)
+			}
+			report check_out_log_Report
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								booking as "Booking"
+								guest_name as "Guest Name"
+								room_number as "Room Number"
+								scheduled_check_out_date as "Scheduled Check Out Date"
+								actual_check_out_date as "Actual Check Out Date"
+								actual_check_out_time as "Actual Check Out Time"
+								additional_charges as "Additional Charges"
+								outstanding_balance as "Outstanding Balance"
+								final_bill_amount as "Final Bill Amount"
+								payment_settlement_status as "Payment Settlement Status"
+								room_condition as "Room Condition"
+								guest_feedback_request as "Guest Feedback Request"
+								staff_member as "Staff Member"
+								check_out_notes as "Check Out Notes"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+								Print 
+								Add 
+								Import 
+								Export 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+							Print   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+							Print   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+		     				title = "Overview"
+							fields
+							(
+								booking as "Booking"
+								guest_name as "Guest Name"
+								room_number as "Room Number"
+								scheduled_check_out_date as "Scheduled Check Out Date"
+								actual_check_out_date as "Actual Check Out Date"
+								actual_check_out_time as "Actual Check Out Time"
+								additional_charges as "Additional Charges"
+								outstanding_balance as "Outstanding Balance"
+								final_bill_amount as "Final Bill Amount"
+								payment_settlement_status as "Payment Settlement Status"
+								room_condition as "Room Condition"
+								guest_feedback_request as "Guest Feedback Request"
+								staff_member as "Staff Member"
+								check_out_notes as "Check Out Notes"
+							)
+						)
+						datablock2
+						(
+		     				title = "Staff Member"
+		     				related field = staff_member
+							fields
+							(
+								staff_id as "Staff Id"
+								staff_name as "Staff Name"
+								email as "Email"
+								mobile_number as "Mobile Number"
+								department as "Department"
+								job_role as "Job Role"
+								joining_date as "Joining Date"
+								employment_status as "Employment Status"
+							)
+						)
+						datablock3
+						(
+		     				title = "Booking"
+		     				related field = booking
+							fields
+							(
+								booking_id as "Booking Id"
+								booking_date as "Booking Date"
+								guest as "Guest"
+								room as "Room"
+								check_in_date as "Check In Date"
+								check_out_date as "Check Out Date"
+								number_of_adults as "Number Of Adults"
+								number_of_children as "Number Of Children"
+								number_of_rooms as "Number Of Rooms"
+								meal_plan as "Meal Plan"
+								booking_source as "Booking Source"
+								special_requests as "Special Requests"
+								room_price_per_night as "Room Price Per Night"
+								number_of_nights as "Number Of Nights"
+								extra_charges as "Extra Charges"
+								discount_amount as "Discount Amount"
+								tax_amount as "Tax Amount"
+								final_booking_amount as "Final Booking Amount"
+								payment_status as "Payment Status"
+								booking_status as "Booking Status"
+								staff_member as "Staff Member"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+								Print 
+							)
+						)
+				)
+			}
+			report check_out_log_by_payment_settlement_status
+			{
+				quickview
+				(
+					layout
+					(
+		 				type = 1
+						datablock1
+						(
+							layout type = 1
+							fields
+							(
+								guest_name as "Guest Name"
+								room_number as "Room Number"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+								Print 
+								Add 
+								Import 
+								Export 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+							Print   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+							Print   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								booking as "Booking"
+								guest_name as "Guest Name"
+								room_number as "Room Number"
+								scheduled_check_out_date as "Scheduled Check Out Date"
+								actual_check_out_date as "Actual Check Out Date"
+								actual_check_out_time as "Actual Check Out Time"
+								additional_charges as "Additional Charges"
+								outstanding_balance as "Outstanding Balance"
+								final_bill_amount as "Final Bill Amount"
+								payment_settlement_status as "Payment Settlement Status"
+								room_condition as "Room Condition"
+								guest_feedback_request as "Guest Feedback Request"
+								staff_member as "Staff Member"
+								check_out_notes as "Check Out Notes"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+								Print 
+							)
+						)
+				)
+			}
+			report room_master_Report
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								room_id as "Room Id"
+								room_number as "Room Number"
+								room_name as "Room Name"
+								floor_number as "Floor Number"
+								building_wing as "Building Or Wing"
+								room_type as "Room Type"
+								bed_type as "Bed Type"
+								max_adult_capacity as "Max Adult Capacity"
+								max_child_capacity as "Max Child Capacity"
+								price_per_night as "Price Per Night"
+								extra_guest_charge as "Extra Guest Charge"
+								amenities as "Amenities"
+								room_description as "Room Description"
+								availability_status as "Availability Status"
+								housekeeping_status as "Housekeeping Status"
+								maintenance_notes as "Maintenance Notes"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+								Print 
+								Add 
+								Import 
+								Export 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+							Print   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+							Print   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+		     				title = "Overview"
+							fields
+							(
+								room_id as "Room Id"
+								room_number as "Room Number"
+								room_name as "Room Name"
+								floor_number as "Floor Number"
+								building_wing as "Building Or Wing"
+								room_type as "Room Type"
+								bed_type as "Bed Type"
+								max_adult_capacity as "Max Adult Capacity"
+								max_child_capacity as "Max Child Capacity"
+								price_per_night as "Price Per Night"
+								extra_guest_charge as "Extra Guest Charge"
+								amenities as "Amenities"
+								room_description as "Room Description"
+								availability_status as "Availability Status"
+								housekeeping_status as "Housekeeping Status"
+								maintenance_notes as "Maintenance Notes"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+								Print 
+							)
+						)
+				)
+			}
+			report room_master_by_room_type
+			{
+				quickview
+				(
+					layout
+					(
+		 				type = 1
+						datablock1
+						(
+							layout type = 1
+							fields
+							(
+								room_number as "Room Number"
+								room_name as "Room Name"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+								Print 
+								Add 
+								Import 
+								Export 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+							Print   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+							Print   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								room_id as "Room Id"
+								room_number as "Room Number"
+								room_name as "Room Name"
+								floor_number as "Floor Number"
+								building_wing as "Building Or Wing"
+								room_type as "Room Type"
+								bed_type as "Bed Type"
+								max_adult_capacity as "Max Adult Capacity"
+								max_child_capacity as "Max Child Capacity"
+								price_per_night as "Price Per Night"
+								extra_guest_charge as "Extra Guest Charge"
+								amenities as "Amenities"
+								room_description as "Room Description"
+								availability_status as "Availability Status"
+								housekeeping_status as "Housekeeping Status"
+								maintenance_notes as "Maintenance Notes"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+								Print 
+							)
+						)
+				)
+			}
+			report payment_transaction_Report
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								booking as "Booking"
+								guest_name as "Guest Name"
+								booking_amount as "Booking Amount"
+								previous_payments as "Previous Payments"
+								current_payment_amount as "Current Payment Amount"
+								payment_date as "Payment Date"
+								payment_method as "Payment Method"
+								transaction_reference as "Transaction Reference"
+								payment_status as "Payment Status"
+								refund_amount as "Refund Amount"
+								payment_notes as "Payment Notes"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+								Print 
+								Add 
+								Import 
+								Export 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+							Print   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+							Print   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+		     				title = "Overview"
+							fields
+							(
+								booking as "Booking"
+								guest_name as "Guest Name"
+								booking_amount as "Booking Amount"
+								previous_payments as "Previous Payments"
+								current_payment_amount as "Current Payment Amount"
+								payment_date as "Payment Date"
+								payment_method as "Payment Method"
+								transaction_reference as "Transaction Reference"
+								payment_status as "Payment Status"
+								refund_amount as "Refund Amount"
+								payment_notes as "Payment Notes"
+							)
+						)
+						datablock2
+						(
+		     				title = "Booking"
+		     				related field = booking
+							fields
+							(
+								booking_id as "Booking Id"
+								booking_date as "Booking Date"
+								guest as "Guest"
+								room as "Room"
+								check_in_date as "Check In Date"
+								check_out_date as "Check Out Date"
+								number_of_adults as "Number Of Adults"
+								number_of_children as "Number Of Children"
+								number_of_rooms as "Number Of Rooms"
+								meal_plan as "Meal Plan"
+								booking_source as "Booking Source"
+								special_requests as "Special Requests"
+								room_price_per_night as "Room Price Per Night"
+								number_of_nights as "Number Of Nights"
+								extra_charges as "Extra Charges"
+								discount_amount as "Discount Amount"
+								tax_amount as "Tax Amount"
+								final_booking_amount as "Final Booking Amount"
+								payment_status as "Payment Status"
+								booking_status as "Booking Status"
+								staff_member as "Staff Member"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+								Print 
+							)
+						)
+				)
+			}
+			report payment_transaction_by_payment_status
+			{
+				quickview
+				(
+					layout
+					(
+		 				type = 1
+						datablock1
+						(
+							layout type = 1
+							fields
+							(
+								guest_name as "Guest Name"
+								transaction_reference as "Transaction Reference"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+								Print 
+								Add 
+								Import 
+								Export 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+							Print   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+							Print   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								booking as "Booking"
+								guest_name as "Guest Name"
+								booking_amount as "Booking Amount"
+								previous_payments as "Previous Payments"
+								current_payment_amount as "Current Payment Amount"
+								payment_date as "Payment Date"
+								payment_method as "Payment Method"
+								transaction_reference as "Transaction Reference"
+								payment_status as "Payment Status"
+								refund_amount as "Refund Amount"
+								payment_notes as "Payment Notes"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+								Print 
+							)
+						)
+				)
+			}
+			report staff_profile_Report
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								staff_id as "Staff Id"
+								staff_name as "Staff Name"
+								email as "Email"
+								mobile_number as "Mobile Number"
+								department as "Department"
+								job_role as "Job Role"
+								joining_date as "Joining Date"
+								employment_status as "Employment Status"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+								Print 
+								Add 
+								Import 
+								Export 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+							Print   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+							Print   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+		     				title = "Overview"
+							fields
+							(
+								staff_id as "Staff Id"
+								staff_name as "Staff Name"
+								email as "Email"
+								mobile_number as "Mobile Number"
+								department as "Department"
+								job_role as "Job Role"
+								joining_date as "Joining Date"
+								employment_status as "Employment Status"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+								Print 
+							)
+						)
+				)
+			}
+			report staff_profile_by_department
+			{
+				quickview
+				(
+					layout
+					(
+		 				type = 1
+						datablock1
+						(
+							layout type = 1
+							fields
+							(
+								staff_name as "Staff Name"
+								job_role as "Job Role"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+								Print 
+								Add 
+								Import 
+								Export 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+							Print   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+							Print   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								staff_id as "Staff Id"
+								staff_name as "Staff Name"
+								email as "Email"
+								mobile_number as "Mobile Number"
+								department as "Department"
+								job_role as "Job Role"
+								joining_date as "Joining Date"
+								employment_status as "Employment Status"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+								Print 
+							)
+						)
+				)
+			}
+			report offer_discount_Report
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								offer_name as "Offer Name"
+								offer_code as "Offer Code"
+								description as "Description"
+								discount_type as "Discount Type"
+								discount_value as "Discount Value"
+								valid_from as "Valid From"
+								valid_until as "Valid Until"
+								applicable_room_types as "Applicable Room Types"
+								minimum_stay as "Minimum Stay"
+								maximum_discount as "Maximum Discount"
+								active_status as "Active Status"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+								Print 
+								Add 
+								Import 
+								Export 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+							Print   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+							Print   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+		     				title = "Overview"
+							fields
+							(
+								offer_name as "Offer Name"
+								offer_code as "Offer Code"
+								description as "Description"
+								discount_type as "Discount Type"
+								discount_value as "Discount Value"
+								valid_from as "Valid From"
+								valid_until as "Valid Until"
+								applicable_room_types as "Applicable Room Types"
+								minimum_stay as "Minimum Stay"
+								maximum_discount as "Maximum Discount"
+								active_status as "Active Status"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+								Print 
+							)
+						)
+				)
+			}
+			report guest_feedback_Report
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								guest as "Guest"
+								booking as "Booking"
+								room_number as "Room Number"
+								overall_rating as "Overall Rating"
+								cleanliness_rating as "Cleanliness Rating"
+								staff_service_rating as "Staff Service Rating"
+								comfort_rating as "Comfort Rating"
+								feedback_comments as "Feedback Comments"
+								submission_date as "Submission Date"
+								follow_up_status as "Follow Up Status"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+								Print 
+								Add 
+								Import 
+								Export 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+							Print   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+							Print   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+		     				title = "Overview"
+							fields
+							(
+								guest as "Guest"
+								booking as "Booking"
+								room_number as "Room Number"
+								overall_rating as "Overall Rating"
+								cleanliness_rating as "Cleanliness Rating"
+								staff_service_rating as "Staff Service Rating"
+								comfort_rating as "Comfort Rating"
+								feedback_comments as "Feedback Comments"
+								submission_date as "Submission Date"
+								follow_up_status as "Follow Up Status"
+							)
+						)
+						datablock2
+						(
+		     				title = "Booking"
+		     				related field = booking
+							fields
+							(
+								booking_id as "Booking Id"
+								booking_date as "Booking Date"
+								guest as "Guest"
+								room as "Room"
+								check_in_date as "Check In Date"
+								check_out_date as "Check Out Date"
+								number_of_adults as "Number Of Adults"
+								number_of_children as "Number Of Children"
+								number_of_rooms as "Number Of Rooms"
+								meal_plan as "Meal Plan"
+								booking_source as "Booking Source"
+								special_requests as "Special Requests"
+								room_price_per_night as "Room Price Per Night"
+								number_of_nights as "Number Of Nights"
+								extra_charges as "Extra Charges"
+								discount_amount as "Discount Amount"
+								tax_amount as "Tax Amount"
+								final_booking_amount as "Final Booking Amount"
+								payment_status as "Payment Status"
+								booking_status as "Booking Status"
+								staff_member as "Staff Member"
+							)
+						)
+						datablock3
+						(
+		     				title = "Guest"
+		     				related field = guest
+							fields
+							(
+								guest_id as "Guest Id"
+								full_name as "Full Name"
+								email as "Email Address"
+								mobile_number as "Mobile Number"
+								alternate_mobile as "Alternate Mobile"
+								date_of_birth as "Date Of Birth"
+								gender as "Gender"
+								address as "Address"
+								postal_code1 as "Postal Code"
+								id_proof_type as "ID Proof Type"
+								id_proof_number as "ID Proof Number"
+								guest_category as "Guest Category"
+								is_vip as "Is VIP Guest"
+								special_requirements as "Special Requirements"
+								guest_notes as "Guest Notes"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+								Print 
+							)
+						)
+				)
+			}
+			report guest_feedback_by_follow_up_status
+			{
+				quickview
+				(
+					layout
+					(
+		 				type = 1
+						datablock1
+						(
+							layout type = 1
+							fields
+							(
+								room_number as "Room Number"
+								guest as "Guest"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+								Print 
+								Add 
+								Import 
+								Export 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+							Print   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+							Print   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								guest as "Guest"
+								booking as "Booking"
+								room_number as "Room Number"
+								overall_rating as "Overall Rating"
+								cleanliness_rating as "Cleanliness Rating"
+								staff_service_rating as "Staff Service Rating"
+								comfort_rating as "Comfort Rating"
+								feedback_comments as "Feedback Comments"
+								submission_date as "Submission Date"
+								follow_up_status as "Follow Up Status"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+								Print 
+							)
+						)
+				)
+			}
+		}
+		menu
+		{
+			space Space
+			{
+				displayname = "Space"
+				icon = "objects-spaceship"
+
+				section Section_1
+				{
+					displayname = "Dashboard"
+					icon = "ui-1-dashboard-half"
+					page DashBoard
+					{
+						icon = "ui-1-dashboard-half"
+					}
+				}
+				section Section_2
+				{
+					displayname = "Records"
+					icon = "health-notebook"
+					form  booking_record
+					{
+						icon = "ui-1-bold-add"
+					}
+					report booking_record_Report
+					{
+						icon = "travel-world"
+					}
+					report booking_record_by_booking_status
+					{
+						icon = "shopping-cash-register"
+					}
+				}
+				section Section_3
+				{
+					displayname = "Check In Log"
+					icon = "shopping-pos"
+					form  check_in_log
+					{
+						icon = "ui-1-bold-add"
+					}
+					report check_in_log_Report
+					{
+						icon = "shopping-pos"
+					}
+					report check_in_log_by_id_verification_status
+					{
+						icon = "users-2-contacts-45"
+					}
+				}
+				section Section_4
+				{
+					displayname = "Housekeeping Tasks"
+					icon = "business-notes"
+					form  housekeeping_task
+					{
+						icon = "ui-1-bold-add"
+					}
+					report housekeeping_task_Report
+					{
+						icon = "business-notes"
+					}
+					report housekeeping_task_by_task_type
+					{
+						icon = "design-todo"
+					}
+				}
+				section Section_5
+				{
+					displayname = "Guest Profiles"
+					icon = "users-2-man"
+					form  guest_profile
+					{
+						icon = "ui-1-bold-add"
+					}
+					report guest_profile_Report
+					{
+						icon = "travel-world"
+					}
+					report guest_profile_by_guest_category
+					{
+						icon = "design-2-selection"
+					}
+				}
+				section Section_6
+				{
+					displayname = "Check Out Log"
+					icon = "shopping-pos"
+					form  check_out_log
+					{
+						icon = "ui-1-bold-add"
+					}
+					report check_out_log_Report
+					{
+						icon = "shopping-pos"
+					}
+					report check_out_log_by_payment_settlement_status
+					{
+						icon = "shopping-receipt"
+					}
+				}
+				section Section_7
+				{
+					displayname = "Room Masters"
+					icon = "furniture-door"
+					form  room_master
+					{
+						icon = "ui-1-bold-add"
+					}
+					report room_master_Report
+					{
+						icon = "shopping-mobile-touch"
+					}
+					report room_master_by_room_type
+					{
+						icon = "furniture-table"
+					}
+				}
+				section Section_8
+				{
+					displayname = "Payment Transactions"
+					icon = "shopping-receipt"
+					form  payment_transaction
+					{
+						icon = "ui-1-bold-add"
+					}
+					report payment_transaction_Report
+					{
+						icon = "shopping-receipt"
+					}
+					report payment_transaction_by_payment_status
+					{
+						icon = "shopping-receipt"
+					}
+				}
+				section Section_9
+				{
+					displayname = "Staff Profiles"
+					icon = "holidays-sickle"
+					form  staff_profile
+					{
+						icon = "ui-1-bold-add"
+					}
+					report staff_profile_Report
+					{
+						icon = "travel-world"
+					}
+					report staff_profile_by_department
+					{
+						icon = "business-hierarchy-53"
+					}
+				}
+				section Section_10
+				{
+					displayname = "Discounts"
+					icon = "shopping-discount"
+					form  offer_discount
+					{
+						icon = "ui-1-bold-add"
+					}
+					report offer_discount_Report
+					{
+						icon = "travel-world"
+					}
+				}
+				section Section_11
+				{
+					displayname = "Guest Feedback"
+					icon = "tech-webcam-38"
+					form  guest_feedback
+					{
+						icon = "ui-1-bold-add"
+					}
+					report guest_feedback_Report
+					{
+						icon = "travel-world"
+					}
+					report guest_feedback_by_follow_up_status
+					{
+						icon = "education-board-51"
+					}
+				}
+				section ZC_App_Preferences
+				{
+					displayname = "App Preferences"
+					icon = "design-app"
+					systemcomponent
+					{
+						type = localization
+						displayname = "Language Selection"
+						icon = "education-language"
+					}
+					systemcomponent
+					{
+						type = connection
+						displayname = "Integrations"
+						icon = "tech-2-connection"
+					}
+				}
+				section ZC_Approvals
+				{
+					displayname = "Approvals"
+					icon = "ui-2-hourglass"
+					systemcomponent
+					{
+						type = approval
+						approval status = pending
+						displayname = "Pending Tasks"
+						icon = "ui-2-hourglass"
+					}
+					systemcomponent
+					{
+						type = approval
+						approval status = completed
+						displayname = "Completed Tasks"
+						icon = "design-todo"
+					}
+				}
+				section SharedAnalytics_Section
+				{
+					type = shared_user_report_section
+					displayname = "Reports"
+					icon = "business-chart-bar-33"
+				}
+			}
+			preference
+			{
+				icon
+				{
+					style = solid
+					show = {space,section,component}
+				}
+			}
+		}
+		customize
+		{
+			new theme = 11
+			font = "poppins"
+			color options
+			{
+				color = "5"
+			}
+			logo
+			{
+				preference = "none"
+				placement = "left"
+			}
+		}
+	}
+	phone
+	{
+		forms
+		{
+			form booking_record
+			{
+				label placement = auto
+			}
+			form check_in_log
+			{
+				label placement = auto
+			}
+			form check_out_log
+			{
+				label placement = auto
+			}
+			form guest_feedback
+			{
+				label placement = auto
+			}
+			form guest_profile
+			{
+				label placement = auto
+			}
+			form housekeeping_task
+			{
+				label placement = auto
+			}
+			form offer_discount
+			{
+				label placement = auto
+			}
+			form payment_transaction
+			{
+				label placement = auto
+			}
+			form room_master
+			{
+				label placement = auto
+			}
+			form staff_profile
+			{
+				label placement = auto
+			}
+		}
+		customize
+		{
+			layout = twocolumn
+			font = "default"
+			style = "3"
+			color options
+			{
+				color = chryslerpurple
+			}
+			logo
+			{
+				preference = "none"
+			}
+		}
+	}
+	tablet
+	{
+		forms
+		{
+			form booking_record
+			{
+				label placement = auto
+			}
+			form check_in_log
+			{
+				label placement = auto
+			}
+			form check_out_log
+			{
+				label placement = auto
+			}
+			form guest_feedback
+			{
+				label placement = auto
+			}
+			form guest_profile
+			{
+				label placement = auto
+			}
+			form housekeeping_task
+			{
+				label placement = auto
+			}
+			form offer_discount
+			{
+				label placement = auto
+			}
+			form payment_transaction
+			{
+				label placement = auto
+			}
+			form room_master
+			{
+				label placement = auto
+			}
+			form staff_profile
+			{
+				label placement = auto
+			}
+		}
+		customize
+		{
+			layout = slidingpane
+			font = "default"
+			style = "3"
+			color options
+			{
+				color = yellow
+			}
+			logo
+			{
+				preference = "none"
+			}
+		}
+	}
+	translation
+{
+{"Language_Settings":{"LANGAGUE_WITH_LOGIN":"browser"}}
+}
+}
